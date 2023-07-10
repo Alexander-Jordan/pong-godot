@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dx2uq41jaw7oh"]
 
-[ext_resource type="PackedScene" uid="uid://c873ut5ta8aqv" path="res://Prefabs/racket.tscn" id="1_7675b"]
+[ext_resource type="PackedScene" uid="uid://c873ut5ta8aqv" path="res://Scenes/racket.tscn" id="1_7675b"]
 
 [node name="Main" type="Node2D"]
 
