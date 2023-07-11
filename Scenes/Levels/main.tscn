@@ -5,4 +5,9 @@
 [node name="Main" type="Node2D"]
 
 [node name="Racket" parent="." instance=ExtResource("1_7675b")]
-position = Vector2(156, 317)
+position = Vector2(150, 325)
+
+[node name="Racket2" parent="." instance=ExtResource("1_7675b")]
+position = Vector2(1000, 325)
+upAction = "up2"
+downAction = "down2"
