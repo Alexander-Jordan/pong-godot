@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dx2uq41jaw7oh"]
+[gd_scene load_steps=3 format=3 uid="uid://dx2uq41jaw7oh"]
 
 [ext_resource type="PackedScene" uid="uid://c873ut5ta8aqv" path="res://Scenes/racket.tscn" id="1_7675b"]
+[ext_resource type="PackedScene" uid="uid://b0xnq3tvsx7u1" path="res://Scenes/ball.tscn" id="2_cvkbu"]
 
 [node name="Main" type="Node2D"]
 
@@ -11,3 +12,6 @@ position = Vector2(150, 325)
 position = Vector2(1000, 325)
 upAction = "up2"
 downAction = "down2"
+
+[node name="ball" parent="." instance=ExtResource("2_cvkbu")]
+position = Vector2(546, 320)

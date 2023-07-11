@@ -1,11 +1,11 @@
 extends CharacterBody2D
 
 # temp variable used to prevent out of bounds
-var screenSize
+var screenSize:Vector2
 
-@export var speed = 400
-@export var upAction := "up"
-@export var downAction := "down"
+@export var speed:int = 400
+@export var upAction:String = "up"
+@export var downAction:String = "down"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
