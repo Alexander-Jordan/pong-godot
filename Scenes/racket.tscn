@@ -5,14 +5,14 @@
 [sub_resource type="CanvasTexture" id="CanvasTexture_rjlg3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r1qgj"]
-size = Vector2(6, 20)
+size = Vector2(8, 40)
 
 [node name="Racket" type="CharacterBody2D"]
 script = ExtResource("1_j8pk7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-1.19209e-07, 1.43051e-06)
-scale = Vector2(6, 20)
+scale = Vector2(8, 40)
 texture = SubResource("CanvasTexture_rjlg3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
