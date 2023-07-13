@@ -22,3 +22,8 @@ func _physics_process(delta):
 	move_and_slide()
 	# simple temp constraint to prevent racket to move out of bounds
 	position.y = clamp(position.y, 0, screenSize.y)
+
+func set_new_ball_direction(current_position:Vector2, current_direction:Vector2) -> Vector2:
+	# set new direction by flipping x direction
+	var new_x_direction:float = -current_direction.x if sign(current_direction.x) == 1 else abs(current_direction.x)
+	return Vector2(new_x_direction, current_direction.y)
