@@ -1,17 +1,33 @@
-[gd_scene load_steps=3 format=3 uid="uid://dx2uq41jaw7oh"]
+[gd_scene load_steps=4 format=3 uid="uid://dx2uq41jaw7oh"]
 
 [ext_resource type="PackedScene" uid="uid://c873ut5ta8aqv" path="res://Scenes/racket.tscn" id="1_7675b"]
 [ext_resource type="PackedScene" uid="uid://b0xnq3tvsx7u1" path="res://Scenes/ball.tscn" id="2_cvkbu"]
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_br5sk"]
+a = Vector2(-640, 0)
+b = Vector2(640, 0)
+
 [node name="Main" type="Node2D"]
 
 [node name="Racket" parent="." instance=ExtResource("1_7675b")]
-position = Vector2(150, 325)
+position = Vector2(150, 360)
 
 [node name="Racket2" parent="." instance=ExtResource("1_7675b")]
-position = Vector2(1000, 325)
+position = Vector2(1130, 360)
 upAction = "up2"
 downAction = "down2"
 
 [node name="ball" parent="." instance=ExtResource("2_cvkbu")]
-position = Vector2(546, 320)
+position = Vector2(640, 360)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(640, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("SegmentShape2D_br5sk")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(640, 720)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+shape = SubResource("SegmentShape2D_br5sk")
