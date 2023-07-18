@@ -15,7 +15,11 @@ func _ready():
 func _physics_process(delta):
 	var collision = move_and_collide(velocity * speed * delta)
 	if collision:
-		velocity = velocity.bounce(collision.get_normal())
+		var collider:Object = collision.get_collider()
+		if collider.has_method("ball_velocity_after_bounce"):
+			velocity = collider.ball_velocity_after_bounce(velocity, position)
+		else:
+			velocity = velocity.bounce(collision.get_normal())
 
 func set_random_direction():
 	var zero_or_one = rng.randi_range(0, 1)
