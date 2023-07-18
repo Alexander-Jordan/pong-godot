@@ -6,7 +6,7 @@ var direction:Vector2 = Vector2.ZERO
 var speed:int = 400
 
 @export var min_speed:int = 400
-@export var max_speed:int = 600
+@export var max_speed:int = 1200
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,7 +19,9 @@ func _physics_process(delta):
 	var collision = move_and_collide(velocity * speed * delta)
 	if collision:
 		var collider:Object = collision.get_collider()
-		if collider.has_method("ball_speed_after_bounce"):
+		if collider.has_method("increase_ball_speed_after_bounce"):
+			speed = collider.increase_ball_speed_after_bounce(speed, 50, max_speed, position)
+		elif collider.has_method("ball_speed_after_bounce"):
 			speed = collider.ball_speed_after_bounce(min_speed, max_speed, position)
 		if collider.has_method("ball_velocity_after_bounce"):
 			velocity = collider.ball_velocity_after_bounce(velocity, position)
