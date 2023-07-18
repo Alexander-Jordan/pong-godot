@@ -29,4 +29,4 @@ func ball_velocity_after_bounce(ball_velocity:Vector2, ball_position:Vector2) ->
 	# new y is calculated by normalizing from_center (20 to -20 range -> 1 to -1 range)
 	# that's done by dividing from_center with max value (in this case: height of collider / 2)
 	var new_y:float = from_center / (size.y / 2)
-	return Vector2(new_x, new_y)
+	return Vector2(new_x, new_y).normalized()
