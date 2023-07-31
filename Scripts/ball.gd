@@ -8,6 +8,9 @@ var speed:int = 400
 @export var min_speed:int = 400
 @export var max_speed:int = 1200
 
+signal player_one_missed
+signal player_two_missed
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	speed = min_speed
@@ -34,6 +37,13 @@ func set_random_direction():
 	velocity = direction.normalized()
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
+	var old_position:Vector2 = position
 	position = Vector2(screen_size.x/2, screen_size.y/2)
 	speed = min_speed
 	set_random_direction()
+	
+	# send signal about who missed the ball
+	if old_position.x < position.x:
+		player_one_missed.emit()
+	else:
+		player_two_missed.emit()

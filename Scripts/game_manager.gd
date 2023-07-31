@@ -1,14 +1,27 @@
 extends Node2D
 class_name GameManager
 
+var player_one_points:int = 0
+var player_two_points:int = 0
+
+signal new_game
 signal pause_game
 signal unpause_game
+signal point_change
+
+func ready():
+	init_new_game()
+
+func init_new_game():
+	new_game.emit()
+	player_one_points = 0
+	player_two_points = 0
+	
 
 func toggle_pause():
-	var paused = !get_tree().paused
-	get_tree().paused = paused
-	
-	if paused:
+	get_tree().paused = !get_tree().paused
+	# send signal
+	if get_tree().paused:
 		pause_game.emit()
 	else:
 		unpause_game.emit()
@@ -27,3 +40,11 @@ func _on_restart_button_pressed():
 func _on_exit_button_pressed():
 	toggle_pause()
 	get_tree().change_scene_to_file("res://Scenes/Levels/menu.tscn")
+
+func _on_ball_player_one_missed():
+	player_two_points += 1
+	point_change.emit("player_two", player_two_points)
+
+func _on_ball_player_two_missed():
+	player_one_points += 1
+	point_change.emit("player_one", player_one_points)
