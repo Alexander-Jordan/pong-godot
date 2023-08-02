@@ -1,6 +1,6 @@
 extends Control
 
-func _on_game_manager_new_game():
+func _on_game_manager_game_reset():
 	$PlayerOneScore.text = "0"
 	$PlayerTwoScore.text = "0"
 

@@ -4,16 +4,16 @@ class_name GameManager
 var player_one_points:int = 0
 var player_two_points:int = 0
 
-signal new_game
-signal pause_game
-signal unpause_game
+signal game_reset
+signal game_pause
+signal game_unpause
 signal point_change
 
 func ready():
 	init_new_game()
 
 func init_new_game():
-	new_game.emit()
+	game_reset.emit()
 	player_one_points = 0
 	player_two_points = 0
 	
@@ -22,9 +22,9 @@ func toggle_pause():
 	get_tree().paused = !get_tree().paused
 	# send signal
 	if get_tree().paused:
-		pause_game.emit()
+		game_pause.emit()
 	else:
-		unpause_game.emit()
+		game_unpause.emit()
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -41,10 +41,10 @@ func _on_exit_button_pressed():
 	toggle_pause()
 	get_tree().change_scene_to_file("res://Scenes/Levels/menu.tscn")
 
-func _on_ball_player_one_missed():
+func _on_ball_screen_exited_left():
 	player_two_points += 1
 	point_change.emit("player_two", player_two_points)
 
-func _on_ball_player_two_missed():
+func _on_ball_screen_exited_right():
 	player_one_points += 1
 	point_change.emit("player_one", player_one_points)
