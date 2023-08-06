@@ -66,6 +66,45 @@ theme_override_fonts/font = ExtResource("4_uptps")
 theme_override_font_sizes/font_size = 84
 text = "0"
 
+[node name="GameOver" type="Control" parent="GameUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PressAnyKeyToContinue" type="Label" parent="GameUI/GameOver"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -143.5
+offset_top = -119.29
+offset_right = 143.501
+offset_bottom = -94.29
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("4_uptps")
+text = "Press any key to continue"
+
+[node name="Label" type="Label" parent="GameUI/GameOver"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -57.0
+offset_top = 50.0
+offset_right = 57.0
+offset_bottom = 75.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_uptps")
+theme_override_font_sizes/font_size = 30
+text = "Game over"
+
 [node name="PauseMenu" type="Control" parent="."]
 process_mode = 2
 visible = false
@@ -106,9 +145,11 @@ focus_neighbor_bottom = NodePath("../ContinueButton")
 theme_override_fonts/font = ExtResource("4_uptps")
 text = "Exit"
 
+[connection signal="game_over" from="GameManager" to="GameUI" method="_on_game_manager_game_over"]
 [connection signal="game_pause" from="GameManager" to="PauseMenu" method="_on_game_manager_game_pause"]
 [connection signal="game_reset" from="GameManager" to="GameUI" method="_on_game_manager_game_reset"]
 [connection signal="game_unpause" from="GameManager" to="PauseMenu" method="_on_game_manager_game_unpause"]
+[connection signal="new_serve" from="GameManager" to="ball" method="_on_game_manager_new_serve"]
 [connection signal="point_change" from="GameManager" to="GameUI" method="_on_game_manager_point_change"]
 [connection signal="screen_exited_left" from="ball" to="GameManager" method="_on_ball_screen_exited_left"]
 [connection signal="screen_exited_right" from="ball" to="GameManager" method="_on_ball_screen_exited_right"]

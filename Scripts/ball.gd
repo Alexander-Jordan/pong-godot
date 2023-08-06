@@ -13,9 +13,8 @@ signal screen_exited_right
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	speed = min_speed
 	screen_size = get_viewport_rect().size
-	set_random_direction()
+	reset_ball_and_serve()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -36,14 +35,17 @@ func set_random_direction():
 	direction = Vector2(-1 if zero_or_one == 0 else 1, rng.randf_range(-1, 1))
 	velocity = direction.normalized()
 
-func _on_visible_on_screen_notifier_2d_screen_exited():
-	var old_position:Vector2 = position
+func reset_ball_and_serve():
 	position = Vector2(screen_size.x/2, screen_size.y/2)
 	speed = min_speed
 	set_random_direction()
-	
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
 	# send signal about who missed the ball
-	if old_position.x < position.x:
+	if position.x < (screen_size.x/2):
 		screen_exited_left.emit()
 	else:
 		screen_exited_right.emit()
+
+func _on_game_manager_new_serve():
+	reset_ball_and_serve()
