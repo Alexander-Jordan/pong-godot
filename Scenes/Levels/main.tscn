@@ -47,63 +47,55 @@ offset_right = 1280.0
 offset_bottom = 720.0
 script = ExtResource("4_mg2a2")
 
-[node name="PlayerOneScore" type="Label" parent="GameUI"]
+[node name="Score" type="HBoxContainer" parent="GameUI"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 113.0
+grow_horizontal = 2
+
+[node name="PlayerOne" type="Label" parent="GameUI/Score"]
 layout_mode = 2
-offset_left = 400.0
-offset_right = 414.0
-offset_bottom = 25.0
-size_flags_horizontal = 4
+size_flags_horizontal = 6
+theme_override_fonts/font = ExtResource("4_uptps")
+theme_override_font_sizes/font_size = 84
+text = "0"
+horizontal_alignment = 1
+
+[node name="PlayerTwo" type="Label" parent="GameUI/Score"]
+layout_mode = 2
+size_flags_horizontal = 6
 theme_override_fonts/font = ExtResource("4_uptps")
 theme_override_font_sizes/font_size = 84
 text = "0"
 
-[node name="PlayerTwoScore" type="Label" parent="GameUI"]
-layout_mode = 2
-offset_left = 850.0
-offset_right = 864.0
-offset_bottom = 25.0
-theme_override_fonts/font = ExtResource("4_uptps")
-theme_override_font_sizes/font_size = 84
-text = "0"
-
-[node name="GameOver" type="Control" parent="GameUI"]
+[node name="GameOver" type="VBoxContainer" parent="GameUI"]
 visible = false
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -153.0
+offset_top = -36.0
+offset_right = 153.0
+offset_bottom = 36.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PressAnyKeyToContinue" type="Label" parent="GameUI/GameOver"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -143.5
-offset_top = -119.29
-offset_right = 143.501
-offset_bottom = -94.29
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("4_uptps")
-text = "Press any key to continue"
-
-[node name="Label" type="Label" parent="GameUI/GameOver"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -57.0
-offset_top = 50.0
-offset_right = 57.0
-offset_bottom = 75.0
-grow_horizontal = 2
+[node name="Title" type="Label" parent="GameUI/GameOver"]
+layout_mode = 2
+size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("4_uptps")
 theme_override_font_sizes/font_size = 30
 text = "Game over"
+
+[node name="Subtitle" type="Label" parent="GameUI/GameOver"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("4_uptps")
+text = "Press ENTER to continue"
 
 [node name="PauseMenu" type="Control" parent="."]
 process_mode = 2
