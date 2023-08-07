@@ -51,19 +51,17 @@ func _on_ball_screen_exited_left():
 	point_change.emit("player_two", player_two_points)
 	# wait for some time before doing anything else
 	await get_tree().create_timer(1.0).timeout
-	if player_two_points > 10:
+	if player_two_points > 0:
 		game_over.emit()
 		is_game_over = true
-	else:
-		new_serve.emit()
+	new_serve.emit()
 
 func _on_ball_screen_exited_right():
 	player_one_points += 1
 	point_change.emit("player_one", player_one_points)
 	# wait for some time before doing anything else
 	await get_tree().create_timer(1.0).timeout
-	if player_one_points > 10:
+	if player_one_points > 0:
 		game_over.emit()
 		is_game_over = true
-	else:
-		new_serve.emit()
+	new_serve.emit()
