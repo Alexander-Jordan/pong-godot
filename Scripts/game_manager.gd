@@ -30,7 +30,7 @@ func toggle_pause():
 		game_unpause.emit()
 
 func _process(_delta):
-	if Input.is_action_just_pressed("ui_cancel"):
+	if !is_game_over && Input.is_action_just_pressed("ui_cancel"):
 		toggle_pause()
 	if is_game_over && (Input.is_action_just_pressed("ui_accept") || Input.is_action_just_pressed("ui_cancel")):
 		get_tree().change_scene_to_file("res://Scenes/Levels/menu.tscn")
@@ -50,7 +50,7 @@ func _on_ball_screen_exited_left():
 	player_two_points += 1
 	point_change.emit("player_two", player_two_points)
 	# wait for some time before doing anything else
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(1.0).timeout
 	if player_two_points > 10:
 		game_over.emit()
 		is_game_over = true
@@ -61,8 +61,8 @@ func _on_ball_screen_exited_right():
 	player_one_points += 1
 	point_change.emit("player_one", player_one_points)
 	# wait for some time before doing anything else
-	await get_tree().create_timer(2.0).timeout
-	if player_two_points > 10:
+	await get_tree().create_timer(1.0).timeout
+	if player_one_points > 10:
 		game_over.emit()
 		is_game_over = true
 	else:
