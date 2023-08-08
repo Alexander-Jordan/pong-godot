@@ -3,10 +3,9 @@ extends CharacterBody2D
 var screen_size:Vector2
 var rng = RandomNumberGenerator.new()
 var direction:Vector2 = Vector2.ZERO
-var speed:int = 400
-
-@export var min_speed:int = 400
-@export var max_speed:int = 1200
+@onready var min_speed:int = GlobalSettings.data.Global.ball_min_speed
+@onready var max_speed:int = GlobalSettings.data.Global.ball_max_speed
+@onready var speed:int = min_speed
 
 signal screen_exited_left
 signal screen_exited_right

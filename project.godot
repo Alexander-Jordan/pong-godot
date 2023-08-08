@@ -14,6 +14,10 @@ config/name="Pong"
 run/main_scene="res://Scenes/Levels/menu.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 
+[autoload]
+
+GlobalSettings="*res://Scripts/global_settings.gd"
+
 [display]
 
 window/size/viewport_width=1280

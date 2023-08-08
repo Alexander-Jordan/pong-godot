@@ -32,6 +32,11 @@ focus_neighbor_top = NodePath("../ExitButton")
 theme_override_fonts/font = ExtResource("2_odct0")
 text = "Start"
 
+[node name="SettingsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_odct0")
+text = "Settings"
+
 [node name="ExitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../StartButton")

@@ -156,9 +156,9 @@ focus_neighbor_bottom = NodePath("../ContinueButton")
 theme_override_fonts/font = ExtResource("4_uptps")
 text = "Exit"
 
-[connection signal="game_over" from="GameManager" to="GameUI" method="_on_game_manager_game_over"]
 [connection signal="game_over" from="GameManager" to="Wall3" method="_on_game_manager_game_over"]
 [connection signal="game_over" from="GameManager" to="Wall4" method="_on_game_manager_game_over"]
+[connection signal="game_over" from="GameManager" to="GameUI" method="_on_game_manager_game_over"]
 [connection signal="game_pause" from="GameManager" to="PauseMenu" method="_on_game_manager_game_pause"]
 [connection signal="game_reset" from="GameManager" to="GameUI" method="_on_game_manager_game_reset"]
 [connection signal="game_unpause" from="GameManager" to="PauseMenu" method="_on_game_manager_game_unpause"]

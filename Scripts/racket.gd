@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed:int = 400
+@onready var speed:int = GlobalSettings.data.Global.paddle_speed
 @export var upAction:String = "up"
 @export var downAction:String = "down"
 
