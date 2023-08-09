@@ -1,0 +1,123 @@
+[gd_scene load_steps=3 format=3 uid="uid://3vslxyqccbpi"]
+
+[ext_resource type="FontFile" uid="uid://dsj5f3rf4iutd" path="res://Assets/retro_computer_personal_use.ttf" id="1_i4h70"]
+[ext_resource type="Script" path="res://Scripts/settings_menu.gd" id="1_m8koy"]
+
+[node name="settings_menu" type="Popup"]
+initial_position = 2
+size = Vector2i(400, 200)
+visible = true
+script = ExtResource("1_m8koy")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.196078, 0.333333, 0.313726, 1)
+
+[node name="GridContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PaddleSpeed" type="HBoxContainer" parent="Control/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Control/GridContainer/PaddleSpeed"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_fonts/font = ExtResource("1_i4h70")
+text = "Paddle speed"
+
+[node name="Controller" type="VBoxContainer" parent="Control/GridContainer/PaddleSpeed"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Value" type="Label" parent="Control/GridContainer/PaddleSpeed/Controller"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("1_i4h70")
+text = "0"
+
+[node name="Slider" type="HSlider" parent="Control/GridContainer/PaddleSpeed/Controller"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="BallMinSpeed" type="HBoxContainer" parent="Control/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Control/GridContainer/BallMinSpeed"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_fonts/font = ExtResource("1_i4h70")
+text = "Ball min speed"
+
+[node name="Controller" type="VBoxContainer" parent="Control/GridContainer/BallMinSpeed"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Value" type="Label" parent="Control/GridContainer/BallMinSpeed/Controller"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("1_i4h70")
+text = "0"
+
+[node name="Slider" type="HSlider" parent="Control/GridContainer/BallMinSpeed/Controller"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="BallMaxSpeed" type="HBoxContainer" parent="Control/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Control/GridContainer/BallMaxSpeed"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_fonts/font = ExtResource("1_i4h70")
+text = "Ball max speed"
+
+[node name="Controller" type="VBoxContainer" parent="Control/GridContainer/BallMaxSpeed"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Value" type="Label" parent="Control/GridContainer/BallMaxSpeed/Controller"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("1_i4h70")
+text = "0"
+
+[node name="Slider" type="HSlider" parent="Control/GridContainer/BallMaxSpeed/Controller"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="SaveButton" type="Button" parent="Control/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_i4h70")
+text = "Save"
+
+[connection signal="value_changed" from="Control/GridContainer/PaddleSpeed/Controller/Slider" to="." method="_on_paddle_speed_slider_value_changed"]
+[connection signal="value_changed" from="Control/GridContainer/BallMinSpeed/Controller/Slider" to="." method="_on_ball_min_speed_slider_value_changed"]
+[connection signal="value_changed" from="Control/GridContainer/BallMaxSpeed/Controller/Slider" to="." method="_on_ball_max_speed_slider_value_changed"]
+[connection signal="pressed" from="Control/GridContainer/SaveButton" to="." method="_on_save_button_pressed"]

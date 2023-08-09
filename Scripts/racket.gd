@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@onready var speed:int = GlobalSettings.data.Global.paddle_speed
+@onready var speed:int = GlobalSettings.data.Global.paddle_speed * 100
 @export var upAction:String = "up"
 @export var downAction:String = "down"
 
@@ -34,6 +34,10 @@ func ball_speed_after_bounce(min_speed:float, max_speed:float, ball_position:Vec
 	return min_speed + (speed_range * speed_multiplyer)
 
 func increase_ball_speed_after_bounce(ball_speed:float, min_increase:float, max_speed:float, ball_position:Vector2) -> float:
+	# first check if the current speed has already reached the limit
+	if ball_speed >= max_speed:
+		return ball_speed
+	
 	# how far from the center in y-axis was the hit?
 	var from_center:float = ball_position.y - position.y
 	# normalizing from_center (20 to -20 range -> 1 to -1 range)

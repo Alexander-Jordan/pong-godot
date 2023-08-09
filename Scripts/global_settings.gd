@@ -3,9 +3,9 @@ extends Node
 # constanst
 const SAVEFILE = "user://SETTINGS.cfg"
 const GLOBAL_USER = "Global"
-const PADDLE_SPEED:int = 400
-const BALL_MIN_SPEED: int = 400
-const BALL_MAX_SPEED: int = 1200
+const PADDLE_SPEED:int = 4
+const BALL_MIN_SPEED: int = 4
+const BALL_MAX_SPEED: int = 12
 const DEFAULT_SETTINGS:Dictionary = {
 	"paddle_speed": PADDLE_SPEED,
 	"ball_min_speed": BALL_MIN_SPEED,
@@ -50,7 +50,7 @@ func save_data():
 		# get defined settings names from constant
 		for setting in DEFAULT_SETTINGS:
 			# check if the setting from data is defined in constant
-			if data.has(setting):
+			if data[section].has(setting):
 				# set config setting to data setting
 				config.set_value(section, setting, data[section][setting])
 			else:
