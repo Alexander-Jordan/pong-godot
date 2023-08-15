@@ -38,9 +38,16 @@ func get_input():
 
 func _physics_process(delta):
 	get_input()
-	move_and_collide(velocity * delta)
 	# lock x position
 	position.x = x_pos
+	
+	# handle collision when moving up & down
+	# for example when the paddle is colliding with the ball
+	var collision:KinematicCollision2D = move_and_collide(velocity * delta)
+	if collision:
+		var collider:Object = collision.get_collider()
+		if collider.has_method("handle_collision"):
+			collider.handle_collision(self)
 
 
 func ball_speed_after_bounce(min_speed:float, max_speed:float, ball_position:Vector2) -> float:
@@ -74,8 +81,10 @@ func increase_ball_speed_after_bounce(ball_speed:float, min_increase:float, max_
 
 
 func ball_velocity_after_bounce(ball_velocity:Vector2, ball_position:Vector2) -> Vector2:
-	# new x is simply x flipped
-	var new_x:float = -ball_velocity.x if sign(ball_velocity.x) == 1 else abs(ball_velocity.x)
+	# new x should be:
+	# - negative if the ball on impact is on the left side of the paddle
+	# - positive if the ball on impact is on the right side of the paddle
+	var new_x:float = -abs(ball_velocity.x) if ball_position.x <= position.x else abs(ball_velocity.x)
 	# how far from the center in y-axis was the hit?
 	var from_center:float = ball_position.y - position.y
 	# new y is calculated by normalizing from_center (20 to -20 range -> 1 to -1 range)

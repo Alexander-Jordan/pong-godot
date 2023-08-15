@@ -50,13 +50,8 @@ func _physics_process(delta):
 	var collision = move_and_collide(velocity * speed * delta)
 	if collision:
 		var collider:Object = collision.get_collider()
-		if collider.has_method("increase_ball_speed_after_bounce"):
-			speed = collider.increase_ball_speed_after_bounce(speed, increase_speed, max_speed, position)
-		elif collider.has_method("ball_speed_after_bounce"):
-			speed = collider.ball_speed_after_bounce(min_speed, max_speed, position)
-		if collider.has_method("ball_velocity_after_bounce"):
-			velocity = collider.ball_velocity_after_bounce(velocity, position)
-		else:
+		if !handle_collision(collider):
+			# if the collision hasn't been handled, just bounce
 			velocity = velocity.bounce(collision.get_normal())
 
 
@@ -65,10 +60,23 @@ func set_random_direction():
 	direction = Vector2(-1 if zero_or_one == 0 else 1, rng.randf_range(-1, 1))
 	velocity = direction.normalized()
 
+
 func reset_ball_and_serve():
 	position = Vector2(screen_size.x/2, screen_size.y/2)
 	speed = min_speed
 	set_random_direction()
+
+
+func handle_collision(paddle:Object) -> bool:
+	# returning false means that the collision hasn't been handled
+	if paddle.has_method("increase_ball_speed_after_bounce"):
+		speed = paddle.increase_ball_speed_after_bounce(speed, increase_speed, max_speed, position)
+	elif paddle.has_method("ball_speed_after_bounce"):
+		speed = paddle.ball_speed_after_bounce(min_speed, max_speed, position)
+	if paddle.has_method("ball_velocity_after_bounce"):
+		velocity = paddle.ball_velocity_after_bounce(velocity, position)
+		return true
+	return false
 
 
 # SIGNAL FUNCTIONS
