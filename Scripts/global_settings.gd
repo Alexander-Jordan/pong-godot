@@ -3,13 +3,17 @@ extends Node
 # constanst
 const SAVEFILE = "user://SETTINGS.cfg"
 const GLOBAL_USER = "Global"
+const THEME:int = 0
 const PADDLE_SPEED:int = 4
-const BALL_MIN_SPEED: int = 4
-const BALL_MAX_SPEED: int = 12
+const BALL_MIN_SPEED:int = 4
+const BALL_MAX_SPEED:int = 12
+const BALL_SPEED_INCREASE:int = 5
 const DEFAULT_SETTINGS:Dictionary = {
+	"theme": THEME,
 	"paddle_speed": PADDLE_SPEED,
 	"ball_min_speed": BALL_MIN_SPEED,
 	"ball_max_speed": BALL_MAX_SPEED,
+	"ball_speed_increase": BALL_SPEED_INCREASE,
 }
 
 # variables

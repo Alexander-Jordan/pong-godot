@@ -5,6 +5,7 @@ var rng = RandomNumberGenerator.new()
 var direction:Vector2 = Vector2.ZERO
 @onready var min_speed:int = GlobalSettings.data.Global.ball_min_speed * 100
 @onready var max_speed:int = GlobalSettings.data.Global.ball_max_speed * 100
+@onready var increase_speed:int = GlobalSettings.data.Global.ball_speed_increase * 10
 @onready var speed:int = min_speed
 
 signal screen_exited_left
@@ -21,7 +22,7 @@ func _physics_process(delta):
 	if collision:
 		var collider:Object = collision.get_collider()
 		if collider.has_method("increase_ball_speed_after_bounce"):
-			speed = collider.increase_ball_speed_after_bounce(speed, 50, max_speed, position)
+			speed = collider.increase_ball_speed_after_bounce(speed, increase_speed, max_speed, position)
 		elif collider.has_method("ball_speed_after_bounce"):
 			speed = collider.ball_speed_after_bounce(min_speed, max_speed, position)
 		if collider.has_method("ball_velocity_after_bounce"):
