@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dx2uq41jaw7oh"]
+[gd_scene load_steps=11 format=3 uid="uid://dx2uq41jaw7oh"]
 
 [ext_resource type="PackedScene" uid="uid://c873ut5ta8aqv" path="res://Scenes/racket.tscn" id="1_7675b"]
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_a0ske"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Scripts/end_screen_wall.gd" id="4_p3qve"]
 [ext_resource type="FontFile" uid="uid://dsj5f3rf4iutd" path="res://Assets/retro_computer_personal_use.ttf" id="4_uptps"]
 [ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="6_t2iy3"]
+[ext_resource type="PackedScene" uid="uid://3vslxyqccbpi" path="res://Scenes/settings_menu.tscn" id="8_52o28"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_br5sk"]
 a = Vector2(-640, 0)
@@ -132,10 +133,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -32.5
-offset_top = -33.0
-offset_right = 32.5
-offset_bottom = 33.0
+offset_left = -58.5
+offset_top = -49.0
+offset_right = 58.5
+offset_bottom = 49.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -150,11 +151,18 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("4_uptps")
 text = "Restart"
 
+[node name="SettingsButton" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_uptps")
+text = "Settings"
+
 [node name="ExitButton" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../ContinueButton")
 theme_override_fonts/font = ExtResource("4_uptps")
 text = "Exit"
+
+[node name="settings_menu" parent="PauseMenu" instance=ExtResource("8_52o28")]
 
 [connection signal="game_over" from="GameManager" to="Wall3" method="_on_game_manager_game_over"]
 [connection signal="game_over" from="GameManager" to="Wall4" method="_on_game_manager_game_over"]
@@ -168,4 +176,8 @@ text = "Exit"
 [connection signal="screen_exited_right" from="ball" to="GameManager" method="_on_ball_screen_exited_right"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/ContinueButton" to="GameManager" method="_on_continue_button_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/RestartButton" to="GameManager" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/SettingsButton" to="PauseMenu/settings_menu" method="_on_settings_button_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/ExitButton" to="GameManager" method="_on_exit_button_pressed"]
+[connection signal="ball_changed" from="PauseMenu/settings_menu" to="ball" method="_on_settings_ball_changed"]
+[connection signal="paddle_changed" from="PauseMenu/settings_menu" to="Racket" method="_on_settings_paddle_changed"]
+[connection signal="paddle_changed" from="PauseMenu/settings_menu" to="Racket2" method="_on_settings_paddle_changed"]

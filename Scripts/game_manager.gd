@@ -21,8 +21,8 @@ func init_new_game():
 	player_two_points = 0
 	
 
-func toggle_pause():
-	get_tree().paused = !get_tree().paused
+func toggle_pause(force_pause:bool = false):
+	get_tree().paused = force_pause if force_pause else !get_tree().paused
 	# send signal
 	if get_tree().paused:
 		game_pause.emit()
@@ -31,7 +31,7 @@ func toggle_pause():
 
 func _process(_delta):
 	if !is_game_over && Input.is_action_just_pressed("ui_cancel"):
-		toggle_pause()
+		toggle_pause(true)
 	if is_game_over && (Input.is_action_just_pressed("ui_accept") || Input.is_action_just_pressed("ui_cancel")):
 		get_tree().change_scene_to_file("res://Scenes/Levels/menu.tscn")
 

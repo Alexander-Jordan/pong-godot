@@ -1,22 +1,51 @@
 extends CharacterBody2D
 
+
+# VARIABLES
+
+@onready var shape:RectangleShape2D = $CollisionShape2D.shape
+@onready var sprite:Sprite2D = $Sprite2D
+
 var screen_size:Vector2
 var rng = RandomNumberGenerator.new()
 var direction:Vector2 = Vector2.ZERO
-@onready var min_speed:int = GlobalSettings.data.Global.ball_min_speed * 100
-@onready var max_speed:int = GlobalSettings.data.Global.ball_max_speed * 100
-@onready var increase_speed:int = GlobalSettings.data.Global.ball_speed_increase * 10
-@onready var speed:int = min_speed
+var size:int
+var min_speed:int
+var max_speed:int
+var increase_speed:int
+var speed:int
+
+
+# SIGNALS
 
 signal screen_exited_left
 signal screen_exited_right
 
-# Called when the node enters the scene tree for the first time.
+
+# FUNCTIONS
+
+func _set_settings_from_global():
+	# SIZE
+	size = GlobalSettings.data.Global.ball_size * 10
+	shape.size = Vector2(size, size)
+	sprite.scale = Vector2(size, size)
+	
+	# SPEED
+	min_speed = GlobalSettings.data.Global.ball_min_speed * 100
+	max_speed = GlobalSettings.data.Global.ball_max_speed * 100
+	if speed < min_speed:
+		speed = min_speed
+	if speed > max_speed:
+		speed = max_speed
+	increase_speed = GlobalSettings.data.Global.ball_speed_increase * 10
+
+
 func _ready():
+	_set_settings_from_global()
 	screen_size = get_viewport_rect().size
 	reset_ball_and_serve()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _physics_process(delta):
 	var collision = move_and_collide(velocity * speed * delta)
 	if collision:
@@ -30,6 +59,7 @@ func _physics_process(delta):
 		else:
 			velocity = velocity.bounce(collision.get_normal())
 
+
 func set_random_direction():
 	var zero_or_one = rng.randi_range(0, 1)
 	direction = Vector2(-1 if zero_or_one == 0 else 1, rng.randf_range(-1, 1))
@@ -40,12 +70,20 @@ func reset_ball_and_serve():
 	speed = min_speed
 	set_random_direction()
 
+
+# SIGNAL FUNCTIONS
+
+func _on_settings_ball_changed():
+	_set_settings_from_global()
+
+
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	# send signal about who missed the ball
 	if position.x < (screen_size.x/2):
 		screen_exited_left.emit()
 	else:
 		screen_exited_right.emit()
+
 
 func _on_game_manager_new_serve():
 	reset_ball_and_serve()

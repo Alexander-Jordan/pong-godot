@@ -15,18 +15,14 @@ borderless = false
 theme = SubResource("Theme_121iw")
 script = ExtResource("1_m8koy")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="TabContainer" type="TabContainer" parent="."]
+offset_right = 800.0
+offset_bottom = 400.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
-layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Graphics" type="MarginContainer" parent="VBoxContainer/TabContainer"]
+[node name="Graphics" type="MarginContainer" parent="TabContainer"]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
@@ -34,20 +30,20 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="GridContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Graphics"]
+[node name="GridContainer" type="VBoxContainer" parent="TabContainer/Graphics"]
 layout_mode = 2
 
-[node name="Theme" type="HBoxContainer" parent="VBoxContainer/TabContainer/Graphics/GridContainer"]
+[node name="Theme" type="HBoxContainer" parent="TabContainer/Graphics/GridContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Graphics/GridContainer/Theme"]
+[node name="Label" type="Label" parent="TabContainer/Graphics/GridContainer/Theme"]
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_fonts/font = ExtResource("1_i4h70")
 text = "Theme"
 
-[node name="OptionButton" type="OptionButton" parent="VBoxContainer/TabContainer/Graphics/GridContainer/Theme"]
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Graphics/GridContainer/Theme"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -58,141 +54,206 @@ popup/item_0/id = 0
 popup/item_1/text = "Remastered"
 popup/item_1/id = 1
 
-[node name="Gameplay" type="MarginContainer" parent="VBoxContainer/TabContainer"]
+[node name="Paddle" type="MarginContainer" parent="TabContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="GridContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Gameplay"]
+[node name="GridContainer" type="VBoxContainer" parent="TabContainer/Paddle"]
 layout_mode = 2
 
-[node name="PaddleSpeed" type="HBoxContainer" parent="VBoxContainer/TabContainer/Gameplay/GridContainer"]
+[node name="PaddleHeight" type="HBoxContainer" parent="TabContainer/Paddle/GridContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Gameplay/GridContainer/PaddleSpeed"]
+[node name="Label" type="Label" parent="TabContainer/Paddle/GridContainer/PaddleHeight"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_fonts/font = ExtResource("1_i4h70")
+text = "Paddle height"
+
+[node name="Controller" type="VBoxContainer" parent="TabContainer/Paddle/GridContainer/PaddleHeight"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Value" type="Label" parent="TabContainer/Paddle/GridContainer/PaddleHeight/Controller"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("1_i4h70")
+text = "0"
+
+[node name="Slider" type="HSlider" parent="TabContainer/Paddle/GridContainer/PaddleHeight/Controller"]
+layout_mode = 2
+size_flags_vertical = 6
+min_value = 1.0
+max_value = 20.0
+value = 20.0
+
+[node name="PaddleSpeed" type="HBoxContainer" parent="TabContainer/Paddle/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="TabContainer/Paddle/GridContainer/PaddleSpeed"]
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_fonts/font = ExtResource("1_i4h70")
 text = "Paddle speed"
 
-[node name="Controller" type="VBoxContainer" parent="VBoxContainer/TabContainer/Gameplay/GridContainer/PaddleSpeed"]
+[node name="Controller" type="VBoxContainer" parent="TabContainer/Paddle/GridContainer/PaddleSpeed"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
-[node name="Value" type="Label" parent="VBoxContainer/TabContainer/Gameplay/GridContainer/PaddleSpeed/Controller"]
+[node name="Value" type="Label" parent="TabContainer/Paddle/GridContainer/PaddleSpeed/Controller"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 theme_override_fonts/font = ExtResource("1_i4h70")
 text = "0"
 
-[node name="Slider" type="HSlider" parent="VBoxContainer/TabContainer/Gameplay/GridContainer/PaddleSpeed/Controller"]
+[node name="Slider" type="HSlider" parent="TabContainer/Paddle/GridContainer/PaddleSpeed/Controller"]
 layout_mode = 2
 size_flags_vertical = 6
 min_value = 1.0
 max_value = 20.0
 value = 20.0
 
-[node name="BallMinSpeed" type="HBoxContainer" parent="VBoxContainer/TabContainer/Gameplay/GridContainer"]
+[node name="Ball" type="MarginContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="VBoxContainer" parent="TabContainer/Ball"]
+layout_mode = 2
+
+[node name="BallSize" type="HBoxContainer" parent="TabContainer/Ball/GridContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Gameplay/GridContainer/BallMinSpeed"]
+[node name="Label" type="Label" parent="TabContainer/Ball/GridContainer/BallSize"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_fonts/font = ExtResource("1_i4h70")
+text = "Ball size"
+
+[node name="Controller" type="VBoxContainer" parent="TabContainer/Ball/GridContainer/BallSize"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Value" type="Label" parent="TabContainer/Ball/GridContainer/BallSize/Controller"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("1_i4h70")
+text = "0"
+
+[node name="Slider" type="HSlider" parent="TabContainer/Ball/GridContainer/BallSize/Controller"]
+layout_mode = 2
+size_flags_vertical = 6
+min_value = 1.0
+max_value = 20.0
+value = 20.0
+
+[node name="BallMinSpeed" type="HBoxContainer" parent="TabContainer/Ball/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="TabContainer/Ball/GridContainer/BallMinSpeed"]
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_fonts/font = ExtResource("1_i4h70")
 text = "Ball min speed"
 
-[node name="Controller" type="VBoxContainer" parent="VBoxContainer/TabContainer/Gameplay/GridContainer/BallMinSpeed"]
+[node name="Controller" type="VBoxContainer" parent="TabContainer/Ball/GridContainer/BallMinSpeed"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
-[node name="Value" type="Label" parent="VBoxContainer/TabContainer/Gameplay/GridContainer/BallMinSpeed/Controller"]
+[node name="Value" type="Label" parent="TabContainer/Ball/GridContainer/BallMinSpeed/Controller"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 theme_override_fonts/font = ExtResource("1_i4h70")
 text = "0"
 
-[node name="Slider" type="HSlider" parent="VBoxContainer/TabContainer/Gameplay/GridContainer/BallMinSpeed/Controller"]
+[node name="Slider" type="HSlider" parent="TabContainer/Ball/GridContainer/BallMinSpeed/Controller"]
 layout_mode = 2
 size_flags_vertical = 6
 min_value = 1.0
 max_value = 20.0
 value = 20.0
 
-[node name="BallMaxSpeed" type="HBoxContainer" parent="VBoxContainer/TabContainer/Gameplay/GridContainer"]
+[node name="BallMaxSpeed" type="HBoxContainer" parent="TabContainer/Ball/GridContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Gameplay/GridContainer/BallMaxSpeed"]
+[node name="Label" type="Label" parent="TabContainer/Ball/GridContainer/BallMaxSpeed"]
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_fonts/font = ExtResource("1_i4h70")
 text = "Ball max speed"
 
-[node name="Controller" type="VBoxContainer" parent="VBoxContainer/TabContainer/Gameplay/GridContainer/BallMaxSpeed"]
+[node name="Controller" type="VBoxContainer" parent="TabContainer/Ball/GridContainer/BallMaxSpeed"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
-[node name="Value" type="Label" parent="VBoxContainer/TabContainer/Gameplay/GridContainer/BallMaxSpeed/Controller"]
+[node name="Value" type="Label" parent="TabContainer/Ball/GridContainer/BallMaxSpeed/Controller"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 theme_override_fonts/font = ExtResource("1_i4h70")
 text = "0"
 
-[node name="Slider" type="HSlider" parent="VBoxContainer/TabContainer/Gameplay/GridContainer/BallMaxSpeed/Controller"]
+[node name="Slider" type="HSlider" parent="TabContainer/Ball/GridContainer/BallMaxSpeed/Controller"]
 layout_mode = 2
 size_flags_vertical = 6
 min_value = 1.0
 max_value = 20.0
 value = 20.0
 
-[node name="BallSpeedIncrease" type="HBoxContainer" parent="VBoxContainer/TabContainer/Gameplay/GridContainer"]
+[node name="BallSpeedIncrease" type="HBoxContainer" parent="TabContainer/Ball/GridContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Gameplay/GridContainer/BallSpeedIncrease"]
+[node name="Label" type="Label" parent="TabContainer/Ball/GridContainer/BallSpeedIncrease"]
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_fonts/font = ExtResource("1_i4h70")
 text = "Ball max speed increase"
 
-[node name="Controller" type="VBoxContainer" parent="VBoxContainer/TabContainer/Gameplay/GridContainer/BallSpeedIncrease"]
+[node name="Controller" type="VBoxContainer" parent="TabContainer/Ball/GridContainer/BallSpeedIncrease"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
-[node name="Value" type="Label" parent="VBoxContainer/TabContainer/Gameplay/GridContainer/BallSpeedIncrease/Controller"]
+[node name="Value" type="Label" parent="TabContainer/Ball/GridContainer/BallSpeedIncrease/Controller"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 theme_override_fonts/font = ExtResource("1_i4h70")
 text = "0"
 
-[node name="Slider" type="HSlider" parent="VBoxContainer/TabContainer/Gameplay/GridContainer/BallSpeedIncrease/Controller"]
+[node name="Slider" type="HSlider" parent="TabContainer/Ball/GridContainer/BallSpeedIncrease/Controller"]
 layout_mode = 2
 size_flags_vertical = 6
 min_value = 1.0
 max_value = 20.0
 value = 20.0
 
-[node name="SaveButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("1_i4h70")
-text = "Save"
-
-[connection signal="item_selected" from="VBoxContainer/TabContainer/Graphics/GridContainer/Theme/OptionButton" to="." method="_on_theme_option_button_item_selected"]
-[connection signal="value_changed" from="VBoxContainer/TabContainer/Gameplay/GridContainer/PaddleSpeed/Controller/Slider" to="." method="_on_paddle_speed_slider_value_changed"]
-[connection signal="value_changed" from="VBoxContainer/TabContainer/Gameplay/GridContainer/BallMinSpeed/Controller/Slider" to="." method="_on_ball_min_speed_slider_value_changed"]
-[connection signal="value_changed" from="VBoxContainer/TabContainer/Gameplay/GridContainer/BallMaxSpeed/Controller/Slider" to="." method="_on_ball_max_speed_slider_value_changed"]
-[connection signal="value_changed" from="VBoxContainer/TabContainer/Gameplay/GridContainer/BallSpeedIncrease/Controller/Slider" to="." method="_on_ball_speed_increase_slider_value_changed"]
-[connection signal="pressed" from="VBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="popup_hide" from="." to="." method="_on_settings_close"]
+[connection signal="item_selected" from="TabContainer/Graphics/GridContainer/Theme/OptionButton" to="." method="_on_theme_option_button_item_selected"]
+[connection signal="value_changed" from="TabContainer/Paddle/GridContainer/PaddleHeight/Controller/Slider" to="." method="_on_paddle_height_slider_value_changed"]
+[connection signal="value_changed" from="TabContainer/Paddle/GridContainer/PaddleSpeed/Controller/Slider" to="." method="_on_paddle_speed_slider_value_changed"]
+[connection signal="value_changed" from="TabContainer/Ball/GridContainer/BallSize/Controller/Slider" to="." method="_on_ball_size_slider_value_changed"]
+[connection signal="value_changed" from="TabContainer/Ball/GridContainer/BallMinSpeed/Controller/Slider" to="." method="_on_ball_min_speed_slider_value_changed"]
+[connection signal="value_changed" from="TabContainer/Ball/GridContainer/BallMaxSpeed/Controller/Slider" to="." method="_on_ball_max_speed_slider_value_changed"]
+[connection signal="value_changed" from="TabContainer/Ball/GridContainer/BallSpeedIncrease/Controller/Slider" to="." method="_on_ball_speed_increase_slider_value_changed"]

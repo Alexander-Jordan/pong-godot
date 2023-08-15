@@ -4,13 +4,17 @@ extends Node
 const SAVEFILE = "user://SETTINGS.cfg"
 const GLOBAL_USER = "Global"
 const THEME:int = 0
+const PADDLE_HEIGHT:int = 4
 const PADDLE_SPEED:int = 4
+const BALL_SIZE:int = 1
 const BALL_MIN_SPEED:int = 4
 const BALL_MAX_SPEED:int = 12
-const BALL_SPEED_INCREASE:int = 5
+const BALL_SPEED_INCREASE:int = 4
 const DEFAULT_SETTINGS:Dictionary = {
 	"theme": THEME,
+	"paddle_height": PADDLE_HEIGHT,
 	"paddle_speed": PADDLE_SPEED,
+	"ball_size": BALL_SIZE,
 	"ball_min_speed": BALL_MIN_SPEED,
 	"ball_max_speed": BALL_MAX_SPEED,
 	"ball_speed_increase": BALL_SPEED_INCREASE,
