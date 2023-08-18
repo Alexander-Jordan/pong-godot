@@ -22,28 +22,69 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
 
-[node name="Graphics" type="MarginContainer" parent="TabContainer"]
-visible = false
+[node name="Visuals" type="MarginContainer" parent="TabContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="GridContainer" type="VBoxContainer" parent="TabContainer/Graphics"]
+[node name="GridContainer" type="VBoxContainer" parent="TabContainer/Visuals"]
 layout_mode = 2
 
-[node name="Theme" type="HBoxContainer" parent="TabContainer/Graphics/GridContainer"]
+[node name="Background" type="HBoxContainer" parent="TabContainer/Visuals/GridContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="TabContainer/Graphics/GridContainer/Theme"]
+[node name="Label" type="Label" parent="TabContainer/Visuals/GridContainer/Background"]
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_fonts/font = ExtResource("1_i4h70")
-text = "Theme"
+text = "Background"
 
-[node name="OptionButton" type="OptionButton" parent="TabContainer/Graphics/GridContainer/Theme"]
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Visuals/GridContainer/Background"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+item_count = 2
+selected = 0
+popup/item_0/text = "Classic"
+popup/item_0/id = 0
+popup/item_1/text = "Remastered"
+popup/item_1/id = 1
+
+[node name="Paddles" type="HBoxContainer" parent="TabContainer/Visuals/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="TabContainer/Visuals/GridContainer/Paddles"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_fonts/font = ExtResource("1_i4h70")
+text = "Paddles"
+
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Visuals/GridContainer/Paddles"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+item_count = 2
+selected = 0
+popup/item_0/text = "Classic"
+popup/item_0/id = 0
+popup/item_1/text = "Remastered"
+popup/item_1/id = 1
+
+[node name="Ball" type="HBoxContainer" parent="TabContainer/Visuals/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="TabContainer/Visuals/GridContainer/Ball"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_fonts/font = ExtResource("1_i4h70")
+text = "Ball"
+
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Visuals/GridContainer/Ball"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -55,6 +96,7 @@ popup/item_1/text = "Remastered"
 popup/item_1/id = 1
 
 [node name="Paddle" type="MarginContainer" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -250,7 +292,9 @@ max_value = 20.0
 value = 20.0
 
 [connection signal="popup_hide" from="." to="." method="_on_settings_close"]
-[connection signal="item_selected" from="TabContainer/Graphics/GridContainer/Theme/OptionButton" to="." method="_on_theme_option_button_item_selected"]
+[connection signal="item_selected" from="TabContainer/Visuals/GridContainer/Background/OptionButton" to="." method="_on_visuals_background_option_button_item_selected"]
+[connection signal="item_selected" from="TabContainer/Visuals/GridContainer/Paddles/OptionButton" to="." method="_on_visuals_paddles_option_button_item_selected"]
+[connection signal="item_selected" from="TabContainer/Visuals/GridContainer/Ball/OptionButton" to="." method="_on_visuals_ball_option_button_item_selected"]
 [connection signal="value_changed" from="TabContainer/Paddle/GridContainer/PaddleHeight/Controller/Slider" to="." method="_on_paddle_height_slider_value_changed"]
 [connection signal="value_changed" from="TabContainer/Paddle/GridContainer/PaddleSpeed/Controller/Slider" to="." method="_on_paddle_speed_slider_value_changed"]
 [connection signal="value_changed" from="TabContainer/Ball/GridContainer/BallSize/Controller/Slider" to="." method="_on_ball_size_slider_value_changed"]

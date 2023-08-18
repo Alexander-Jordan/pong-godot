@@ -25,19 +25,20 @@ signal screen_exited_right
 # FUNCTIONS
 
 func _set_settings_from_global():
+	var gameplay_settings:Dictionary = GlobalSettings.data.gameplays.current
 	# SIZE
-	size = GlobalSettings.data.Global.ball_size * 10
+	size = gameplay_settings.ball_size * 10
 	shape.size = Vector2(size, size)
 	sprite.scale = Vector2(size, size)
 	
 	# SPEED
-	min_speed = GlobalSettings.data.Global.ball_min_speed * 100
-	max_speed = GlobalSettings.data.Global.ball_max_speed * 100
+	min_speed = gameplay_settings.ball_min_speed * 100
+	max_speed = gameplay_settings.ball_max_speed * 100
 	if speed < min_speed:
 		speed = min_speed
 	if speed > max_speed:
 		speed = max_speed
-	increase_speed = GlobalSettings.data.Global.ball_speed_increase * 10
+	increase_speed = gameplay_settings.ball_speed_increase * 10
 
 
 func _ready():

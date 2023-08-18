@@ -1,23 +1,59 @@
 extends Node
 
-# constanst
+# constants
 const SAVEFILE = "user://SETTINGS.cfg"
-const GLOBAL_USER = "Global"
-const THEME:int = 0
-const PADDLE_HEIGHT:int = 4
-const PADDLE_SPEED:int = 4
-const BALL_SIZE:int = 1
-const BALL_MIN_SPEED:int = 4
-const BALL_MAX_SPEED:int = 12
-const BALL_SPEED_INCREASE:int = 4
-const DEFAULT_SETTINGS:Dictionary = {
-	"theme": THEME,
-	"paddle_height": PADDLE_HEIGHT,
-	"paddle_speed": PADDLE_SPEED,
-	"ball_size": BALL_SIZE,
-	"ball_min_speed": BALL_MIN_SPEED,
-	"ball_max_speed": BALL_MAX_SPEED,
-	"ball_speed_increase": BALL_SPEED_INCREASE,
+
+const SETTINGS_VISUALS_CLASSIC:Dictionary = {
+	"paddles": 0,
+	"ball": 0,
+	"background": 0,
+}
+const SETTINGS_VISUALS_REMASTERED:Dictionary = {
+	"paddles": 1,
+	"ball": 1,
+	"background": 1,
+}
+
+const SETTINGS_GAMEPLAY_CLASSIC:Dictionary = {
+	"paddle_height": 4,
+	"paddle_speed": 4,
+	"ball_size": 1,
+	"ball_min_speed": 4,
+	"ball_max_speed": 12,
+	"ball_speed_increase": 4,
+}
+const SETTINGS_GAMEPLAY_BIG:Dictionary = {
+	"paddle_height": 20,
+	"paddle_speed": 12,
+	"ball_size": 10,
+	"ball_min_speed": 4,
+	"ball_max_speed": 12,
+	"ball_speed_increase": 4,
+}
+const SETTINGS_GAMEPLAY_SPEED:Dictionary = {
+	"paddle_height": 10,
+	"paddle_speed": 14,
+	"ball_size": 2,
+	"ball_min_speed": 5,
+	"ball_max_speed": 20,
+	"ball_speed_increase": 5,
+}
+
+const SETTINGS_VISUALS:Dictionary = {
+	"current": SETTINGS_VISUALS_CLASSIC,
+	"classic": SETTINGS_VISUALS_CLASSIC,
+	"remastered": SETTINGS_VISUALS_REMASTERED,
+}
+const SETTINGS_GAMEPLAYS:Dictionary = {
+	"current": SETTINGS_GAMEPLAY_CLASSIC,
+	"classic": SETTINGS_GAMEPLAY_CLASSIC,
+	"big": SETTINGS_GAMEPLAY_BIG,
+	"speed": SETTINGS_GAMEPLAY_SPEED
+}
+
+const SETTINGS_SECTIONS:Dictionary = {
+	"visuals": SETTINGS_VISUALS,
+	"gameplays": SETTINGS_GAMEPLAYS,
 }
 
 # variables
@@ -34,36 +70,27 @@ func load_data():
 	
 	# if no file
 	if error != OK:
-		# get default data from constants
-		data = {GLOBAL_USER: DEFAULT_SETTINGS}
+		# get default data from constant
+		data = SETTINGS_SECTIONS
+		#data = {GLOBAL_USER: DEFAULT_SETTINGS}
 		# save and return
 		save_data()
 		return
 	
-	# sections should be user based ("Global" is for all users without specific user settings)
-	for section in config.get_sections():
-		# first create the section (user) to be stored
-		data[section] = {}
-		# get defined settings names from constant
-		for setting in DEFAULT_SETTINGS:
-			# get and store config section setting in data section setting
-			data[section][setting] = config.get_value(section, setting, DEFAULT_SETTINGS[setting])
+	# set data from config file
+	for config_section in config.get_sections():
+		data[config_section] = {}
+		for config_section_key in config.get_section_keys(config_section):
+			var default_config_value = SETTINGS_VISUALS_CLASSIC if config_section == "visuals" else SETTINGS_GAMEPLAY_CLASSIC
+			data[config_section][config_section_key] = config.get_value(config_section, config_section_key, default_config_value)
 
 func save_data():
 	# create new ConfigFile object
 	var config = ConfigFile.new()
 	
-	# sections should be user based ("Global" is for all users without specific user settings)
-	for section in data:
-		# get defined settings names from constant
-		for setting in DEFAULT_SETTINGS:
-			# check if the setting from data is defined in constant
-			if data[section].has(setting):
-				# set config setting to data setting
-				config.set_value(section, setting, data[section][setting])
-			else:
-				# set config setting to default
-				config.set_value(section, setting, DEFAULT_SETTINGS[setting])
+	for config_section in data:
+		for config_section_key in data[config_section]:
+			config.set_value(config_section, config_section_key, data[config_section][config_section_key])
 	
 	# finally save to file
 	config.save(SAVEFILE)
