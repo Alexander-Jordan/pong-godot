@@ -39,6 +39,10 @@ const SETTINGS_GAMEPLAY_SPEED:Dictionary = {
 	"ball_speed_increase": 5,
 }
 
+const SETTINGS_TEMPLATES:Dictionary = {
+	"visuals": 1,
+	"gameplay": 1,
+}
 const SETTINGS_VISUALS:Dictionary = {
 	"current": SETTINGS_VISUALS_CLASSIC,
 	"classic": SETTINGS_VISUALS_CLASSIC,
@@ -52,6 +56,7 @@ const SETTINGS_GAMEPLAYS:Dictionary = {
 }
 
 const SETTINGS_SECTIONS:Dictionary = {
+	"templates": SETTINGS_TEMPLATES,
 	"visuals": SETTINGS_VISUALS,
 	"gameplays": SETTINGS_GAMEPLAYS,
 }
@@ -72,7 +77,6 @@ func load_data():
 	if error != OK:
 		# get default data from constant
 		data = SETTINGS_SECTIONS
-		#data = {GLOBAL_USER: DEFAULT_SETTINGS}
 		# save and return
 		save_data()
 		return
@@ -81,8 +85,7 @@ func load_data():
 	for config_section in config.get_sections():
 		data[config_section] = {}
 		for config_section_key in config.get_section_keys(config_section):
-			var default_config_value = SETTINGS_VISUALS_CLASSIC if config_section == "visuals" else SETTINGS_GAMEPLAY_CLASSIC
-			data[config_section][config_section_key] = config.get_value(config_section, config_section_key, default_config_value)
+			data[config_section][config_section_key] = config.get_value(config_section, config_section_key)
 
 func save_data():
 	# create new ConfigFile object
