@@ -11,7 +11,6 @@ default_font = ExtResource("1_i4h70")
 title = "Settings"
 initial_position = 2
 size = Vector2i(800, 400)
-visible = true
 borderless = false
 theme = SubResource("Theme_121iw")
 script = ExtResource("1_m8koy")
@@ -24,7 +23,6 @@ grow_vertical = 2
 size_flags_vertical = 3
 
 [node name="Visuals" type="MarginContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -98,6 +96,7 @@ popup/item_1/text = "Remastered"
 popup/item_1/id = 1
 
 [node name="Gameplay" type="TabContainer" parent="TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="General" type="MarginContainer" parent="TabContainer/Gameplay"]
@@ -326,9 +325,15 @@ value = 20.0
 [connection signal="item_selected" from="TabContainer/Visuals/GridContainer/Paddles/OptionButton" to="." method="_on_visuals_paddles_option_button_item_selected"]
 [connection signal="item_selected" from="TabContainer/Visuals/GridContainer/Ball/OptionButton" to="." method="_on_visuals_ball_option_button_item_selected"]
 [connection signal="item_selected" from="TabContainer/Gameplay/General/GridContainer/Template/OptionButton" to="." method="_on_gameplay_template_option_button_item_selected"]
+[connection signal="drag_ended" from="TabContainer/Gameplay/Paddle/GridContainer/PaddleHeight/Controller/Slider" to="." method="_on_paddle_height_slider_drag_ended"]
 [connection signal="value_changed" from="TabContainer/Gameplay/Paddle/GridContainer/PaddleHeight/Controller/Slider" to="." method="_on_paddle_height_slider_value_changed"]
+[connection signal="drag_ended" from="TabContainer/Gameplay/Paddle/GridContainer/PaddleSpeed/Controller/Slider" to="." method="_on_paddle_speed_slider_drag_ended"]
 [connection signal="value_changed" from="TabContainer/Gameplay/Paddle/GridContainer/PaddleSpeed/Controller/Slider" to="." method="_on_paddle_speed_slider_value_changed"]
+[connection signal="drag_ended" from="TabContainer/Gameplay/Ball/GridContainer/BallSize/Controller/Slider" to="." method="_on_ball_size_slider_drag_ended"]
 [connection signal="value_changed" from="TabContainer/Gameplay/Ball/GridContainer/BallSize/Controller/Slider" to="." method="_on_ball_size_slider_value_changed"]
+[connection signal="drag_ended" from="TabContainer/Gameplay/Ball/GridContainer/BallMinSpeed/Controller/Slider" to="." method="_on_ball_min_speed_slider_drag_ended"]
 [connection signal="value_changed" from="TabContainer/Gameplay/Ball/GridContainer/BallMinSpeed/Controller/Slider" to="." method="_on_ball_min_speed_slider_value_changed"]
+[connection signal="drag_ended" from="TabContainer/Gameplay/Ball/GridContainer/BallMaxSpeed/Controller/Slider" to="." method="_on_ball_max_speed_slider_drag_ended"]
 [connection signal="value_changed" from="TabContainer/Gameplay/Ball/GridContainer/BallMaxSpeed/Controller/Slider" to="." method="_on_ball_max_speed_slider_value_changed"]
+[connection signal="drag_ended" from="TabContainer/Gameplay/Ball/GridContainer/BallSpeedIncrease/Controller/Slider" to="." method="_on_ball_speed_increase_slider_drag_ended"]
 [connection signal="value_changed" from="TabContainer/Gameplay/Ball/GridContainer/BallSpeedIncrease/Controller/Slider" to="." method="_on_ball_speed_increase_slider_value_changed"]

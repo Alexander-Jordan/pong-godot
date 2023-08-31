@@ -21,7 +21,7 @@ var speed:int
 # FUNCTIONS
 
 func _set_settings_from_global():
-	var gameplay_settings:Dictionary = GlobalSettings.data.gameplays.current
+	var gameplay_settings:Dictionary = GlobalSettings.data.gameplays.custom
 	speed = gameplay_settings.paddle_speed * 100
 	height = gameplay_settings.paddle_height * 10
 	shape.size.y = height

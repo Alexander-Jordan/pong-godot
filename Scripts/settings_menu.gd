@@ -33,8 +33,8 @@ func _on_settings_button_pressed():
 
 func _ready():
 	var template_settings:Dictionary = GlobalSettings.data.templates
-	var visuals_settings:Dictionary = GlobalSettings.data.visuals.current
-	var gameplay_settings:Dictionary = GlobalSettings.data.gameplays.current
+	var visuals_settings:Dictionary = GlobalSettings.data.visuals.custom
+	var gameplay_settings:Dictionary = GlobalSettings.data.gameplays.custom
 	
 	visuals_background_option_button.grab_focus()
 	visuals_background_option_button.select(visuals_settings.background)
@@ -57,7 +57,7 @@ func _ready():
 	set_gameplay_settings_from_global_settings()
 
 func set_gameplay_settings_from_global_settings():
-	var gameplay_settings:Dictionary = GlobalSettings.data.gameplays.current
+	var gameplay_settings:Dictionary = GlobalSettings.data.gameplays.custom
 	
 	paddle_speed_value.text = str(gameplay_settings.paddle_speed)
 	paddle_speed_slider.value = gameplay_settings.paddle_speed
@@ -77,79 +77,86 @@ func set_gameplay_settings_from_global_settings():
 	ball_speed_increase_value.text = str(gameplay_settings.ball_speed_increase)
 	ball_speed_increase_slider.value = gameplay_settings.ball_speed_increase
 
+func on_gameplay_setting_slider_drag_ended(value_changed:bool):
+	if value_changed:
+		# select "Custom" gameplay template
+		gameplay_general_template_option_button.select(0)
+		# set in Global Settings as well
+		GlobalSettings.data.templates.gameplay = 0
+
 
 func _on_visuals_background_option_button_item_selected(index):
-	print(index)
-	GlobalSettings.data.visuals.current.background = index
+	GlobalSettings.data.visuals.custom.background = index
 	visuals_changed.emit()
 
 
 func _on_visuals_paddles_option_button_item_selected(index):
-	GlobalSettings.data.visuals.current.paddles = index
+	GlobalSettings.data.visuals.custom.paddles = index
 	visuals_changed.emit()
 
 
 func _on_visuals_ball_option_button_item_selected(index):
-	GlobalSettings.data.visuals.current.ball = index
+	GlobalSettings.data.visuals.custom.ball = index
 	visuals_changed.emit()
 
 
 func _on_gameplay_template_option_button_item_selected(index):
 	GlobalSettings.data.templates.gameplay = index
 	var gameplay_template_name = gameplay_general_template_option_button.get_item_text(index)
-	GlobalSettings.data.gameplays.current = GlobalSettings.data.gameplays[gameplay_template_name]
-	set_gameplay_settings_from_global_settings()
+	if GlobalSettings.data.gameplays.has(gameplay_template_name):
+		GlobalSettings.data.gameplays.custom = GlobalSettings.data.gameplays.get(gameplay_template_name).duplicate(true)
+		set_gameplay_settings_from_global_settings()
 
 
-func _on_paddle_speed_slider_value_changed(value):
-	paddle_speed_value.text = str(value)
-	GlobalSettings.data.gameplays.current.paddle_speed = value
-	# autoselect "Custom" gameplay template
-	gameplay_general_template_option_button.select(0)
-	paddle_changed.emit()
-
-
+func _on_paddle_height_slider_drag_ended(value_changed):
+	on_gameplay_setting_slider_drag_ended(value_changed)
 func _on_paddle_height_slider_value_changed(value):
 	paddle_height_value.text = str(value)
-	GlobalSettings.data.gameplays.current.paddle_height = value
-	# autoselect "Custom" gameplay template
-	gameplay_general_template_option_button.select(0)
+	GlobalSettings.data.gameplays.custom.paddle_height = value
 	paddle_changed.emit()
 
 
+func _on_paddle_speed_slider_drag_ended(value_changed):
+	on_gameplay_setting_slider_drag_ended(value_changed)
+func _on_paddle_speed_slider_value_changed(value):
+	paddle_speed_value.text = str(value)
+	GlobalSettings.data.gameplays.custom.paddle_speed = value
+	paddle_changed.emit()
+
+
+func _on_ball_size_slider_drag_ended(value_changed):
+	on_gameplay_setting_slider_drag_ended(value_changed)
 func _on_ball_size_slider_value_changed(value):
 	ball_size_value.text = str(value)
-	GlobalSettings.data.gameplays.current.ball_size = value
-	# autoselect "Custom" gameplay template
-	gameplay_general_template_option_button.select(0)
+	GlobalSettings.data.gameplays.custom.ball_size = value
 	ball_changed.emit()
 
 
+func _on_ball_min_speed_slider_drag_ended(value_changed):
+	on_gameplay_setting_slider_drag_ended(value_changed)
 func _on_ball_min_speed_slider_value_changed(value):
 	ball_min_speed_value.text = str(value)
-	GlobalSettings.data.gameplays.current.ball_min_speed = value
-	if value > GlobalSettings.data.gameplays.current.ball_max_speed:
+	GlobalSettings.data.gameplays.custom.ball_min_speed = value
+	if value > GlobalSettings.data.gameplays.custom.ball_max_speed:
 		ball_max_speed_slider.value = value
-	# autoselect "Custom" gameplay template
-	gameplay_general_template_option_button.select(0)
 	ball_changed.emit()
 
 
+func _on_ball_max_speed_slider_drag_ended(value_changed):
+	on_gameplay_setting_slider_drag_ended(value_changed)
 func _on_ball_max_speed_slider_value_changed(value):
 	ball_max_speed_value.text = str(value)
-	GlobalSettings.data.gameplays.current.ball_max_speed = value
-	if value < GlobalSettings.data.gameplays.current.ball_min_speed:
+	GlobalSettings.data.gameplays.custom.ball_max_speed = value
+	if value < GlobalSettings.data.gameplays.custom.ball_min_speed:
 		ball_min_speed_slider.value = value
-	# autoselect "Custom" gameplay template
-	gameplay_general_template_option_button.select(0)
 	ball_changed.emit()
 
 
+func _on_ball_speed_increase_slider_drag_ended(value_changed):
+	on_gameplay_setting_slider_drag_ended(value_changed)
 func _on_ball_speed_increase_slider_value_changed(value):
 	ball_speed_increase_value.text = str(value)
-	GlobalSettings.data.gameplays.current.ball_speed_increase = value
-	# autoselect "Custom" gameplay template
-	gameplay_general_template_option_button.select(0)
+	GlobalSettings.data.gameplays.custom.ball_speed_increase = value
 	ball_changed.emit()
 
 

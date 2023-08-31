@@ -25,7 +25,7 @@ signal screen_exited_right
 # FUNCTIONS
 
 func _set_settings_from_global():
-	var gameplay_settings:Dictionary = GlobalSettings.data.gameplays.current
+	var gameplay_settings:Dictionary = GlobalSettings.data.gameplays.custom
 	# SIZE
 	size = gameplay_settings.ball_size * 10
 	shape.size = Vector2(size, size)
