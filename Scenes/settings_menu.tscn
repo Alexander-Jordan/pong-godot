@@ -7,11 +7,13 @@
 default_font = ExtResource("1_i4h70")
 /constants/test = 11
 
-[node name="settings_menu" type="Popup"]
+[node name="settings_menu" type="Window"]
 title = "Settings"
 initial_position = 2
 size = Vector2i(800, 400)
-borderless = false
+visible = false
+unresizable = true
+popup_window = true
 theme = SubResource("Theme_121iw")
 script = ExtResource("1_m8koy")
 
@@ -320,7 +322,7 @@ min_value = 1.0
 max_value = 20.0
 value = 20.0
 
-[connection signal="popup_hide" from="." to="." method="_on_settings_close"]
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
 [connection signal="item_selected" from="TabContainer/Visuals/GridContainer/Background/OptionButton" to="." method="_on_visuals_background_option_button_item_selected"]
 [connection signal="item_selected" from="TabContainer/Visuals/GridContainer/Paddles/OptionButton" to="." method="_on_visuals_paddles_option_button_item_selected"]
 [connection signal="item_selected" from="TabContainer/Visuals/GridContainer/Ball/OptionButton" to="." method="_on_visuals_ball_option_button_item_selected"]

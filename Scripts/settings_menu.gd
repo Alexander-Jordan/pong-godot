@@ -1,4 +1,4 @@
-extends Node
+extends Window
 
 @onready var visuals_background_option_button:OptionButton = $TabContainer/Visuals/GridContainer/Background/OptionButton
 @onready var visuals_paddles_option_button:OptionButton = $TabContainer/Visuals/GridContainer/Paddles/OptionButton
@@ -29,7 +29,7 @@ signal paddle_changed
 signal ball_changed
 
 func _on_settings_button_pressed():
-	self.visible = true
+	self.show()
 
 func _ready():
 	var template_settings:Dictionary = GlobalSettings.data.templates
@@ -160,5 +160,6 @@ func _on_ball_speed_increase_slider_value_changed(value):
 	ball_changed.emit()
 
 
-func _on_settings_close():
+func _on_close_requested():
 	GlobalSettings.save_data()
+	self.hide()
