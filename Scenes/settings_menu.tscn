@@ -51,11 +51,11 @@ item_count = 4
 selected = 0
 popup/item_0/text = "Player"
 popup/item_0/id = 0
-popup/item_1/text = "AI (Easy)"
+popup/item_1/text = "AI (1)"
 popup/item_1/id = 1
-popup/item_2/text = "AI (Normal)"
+popup/item_2/text = "AI (2)"
 popup/item_2/id = 2
-popup/item_3/text = "AI (Hard)"
+popup/item_3/text = "AI (3)"
 popup/item_3/id = 3
 
 [node name="Paddle2" type="HBoxContainer" parent="TabContainer/Players/VBoxContainer"]
@@ -75,11 +75,11 @@ item_count = 4
 selected = 0
 popup/item_0/text = "Player"
 popup/item_0/id = 0
-popup/item_1/text = "AI (Easy)"
+popup/item_1/text = "AI (1)"
 popup/item_1/id = 1
-popup/item_2/text = "AI (Normal)"
+popup/item_2/text = "AI (2)"
 popup/item_2/id = 2
-popup/item_3/text = "AI (Hard)"
+popup/item_3/text = "AI (3)"
 popup/item_3/id = 3
 
 [node name="Visuals" type="MarginContainer" parent="TabContainer"]

@@ -13,37 +13,23 @@ func _ready():
 
 func get_direction(AI:int) -> int:
 	if AI == 1:
-		return easy_ai()
+		return ai_type_1()
 	if AI == 2:
-		return normal_ai()
+		return ai_type_2()
 	if AI == 3:
-		return hard_ai()
+		return ai_type_3()
 	return 0
 
-func easy_ai() -> int:
+func ai_type_1() -> int:
 	# ignore the ball if it is going away from the paddle
-	if side == 'left' and ball_velocity.x > 0:
-		return 0
-	if side == 'right' and ball_velocity.x < 0:
+	if is_ball_moving_away():
 		return 0
 	
-	if global_position.y > ball_position.y:
-		return -1
-	if global_position.y < ball_position.y:
-		return 1
-	
-	return 0
+	return keep_center_position_at_ball_center()
 
-func normal_ai():
-	# ignore the ball if it is going away from the paddle
-	if side == 'left' and ball_velocity.x > 0:
-		if global_position.y > center.y:
-			return -1
-		elif global_position.y < center.y:
-			return 1
-		else:
-			return 0
-	if side == 'right' and ball_velocity.x < 0:
+func ai_type_2() -> int:
+	# move to the center if the ball is going away from the paddle
+	if is_ball_moving_away():
 		if global_position.y > center.y:
 			return -1
 		elif global_position.y < center.y:
@@ -51,6 +37,12 @@ func normal_ai():
 		else:
 			return 0
 	
+	return keep_center_position_at_ball_center()
+
+func ai_type_3() -> int:
+	return keep_center_position_at_ball_center()
+
+func keep_center_position_at_ball_center() -> int:
 	if global_position.y > ball_position.y:
 		return -1
 	if global_position.y < ball_position.y:
@@ -58,10 +50,9 @@ func normal_ai():
 	
 	return 0
 
-func hard_ai():
-	if global_position.y > ball_position.y:
-		return -1
-	if global_position.y < ball_position.y:
-		return 1
-	
-	return 0
+func is_ball_moving_away():
+	if side == 'left' and ball_velocity.x > 0:
+		return true
+	if side == 'right' and ball_velocity.x < 0:
+		return true
+	return false
