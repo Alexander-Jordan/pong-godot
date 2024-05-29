@@ -3,16 +3,19 @@ extends CharacterBody2D
 
 # VARIABLES
 
+@export_range(1, 2, 1) var player:int
 @export var upAction:String = "up"
 @export var downAction:String = "down"
 
 @onready var shape:RectangleShape2D = $CollisionShape2D.shape
 @onready var sprite:Sprite2D = $Sprite2D
+@onready var paddle_ai:PaddleAI = $PaddleAI
 # used to lock x position
 @onready var x_pos = self.position.x
 
 var height:int
 var speed:int
+var ai:int
 
 
 # SIGNALS
@@ -26,6 +29,10 @@ func _set_settings_from_global():
 	height = gameplay_settings.paddle_height * 10
 	shape.size.y = height
 	sprite.scale.y = height
+	
+	var temp_ai = GlobalSettings.data.players['paddle_{player}'.format({'player': player})]
+	if temp_ai is int:
+		ai = temp_ai
 
 
 func _ready():
@@ -33,7 +40,7 @@ func _ready():
 
 
 func get_input():
-	var direction = Input.get_axis(upAction, downAction)
+	var direction = Input.get_axis(upAction, downAction) if ai == 0 else paddle_ai.get_direction(ai)
 	velocity = Vector2(0, direction * speed)
 
 
@@ -100,3 +107,17 @@ func ball_velocity_after_bounce(ball_velocity:Vector2, ball_position:Vector2) ->
 
 func _on_settings_paddle_changed():
 	_set_settings_from_global()
+
+
+func _on_settings_menu_players_changed():
+	var temp_ai = GlobalSettings.data.players['paddle_{player}'.format({'player': player})]
+	if temp_ai is int:
+		ai = temp_ai
+
+
+func _on_ball_current_position(pos:Vector2):
+	paddle_ai.ball_position = pos
+
+
+func _on_ball_current_velocity(vel:Vector2):
+	paddle_ai.ball_velocity = vel

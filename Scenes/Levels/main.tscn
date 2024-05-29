@@ -24,9 +24,11 @@ script = ExtResource("1_a0ske")
 
 [node name="Racket" parent="." instance=ExtResource("1_7675b")]
 position = Vector2(150, 360)
+player = 1
 
 [node name="Racket2" parent="." instance=ExtResource("1_7675b")]
 position = Vector2(1130, 360)
+player = 2
 upAction = "up2"
 downAction = "down2"
 
@@ -172,6 +174,10 @@ text = "Exit"
 [connection signal="game_unpause" from="GameManager" to="PauseMenu" method="_on_game_manager_game_unpause"]
 [connection signal="new_serve" from="GameManager" to="ball" method="_on_game_manager_new_serve"]
 [connection signal="point_change" from="GameManager" to="GameUI" method="_on_game_manager_point_change"]
+[connection signal="current_position" from="ball" to="Racket" method="_on_ball_current_position"]
+[connection signal="current_position" from="ball" to="Racket2" method="_on_ball_current_position"]
+[connection signal="current_velocity" from="ball" to="Racket" method="_on_ball_current_velocity"]
+[connection signal="current_velocity" from="ball" to="Racket2" method="_on_ball_current_velocity"]
 [connection signal="screen_exited_left" from="ball" to="GameManager" method="_on_ball_screen_exited_left"]
 [connection signal="screen_exited_right" from="ball" to="GameManager" method="_on_ball_screen_exited_right"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/ContinueButton" to="GameManager" method="_on_continue_button_pressed"]
@@ -181,3 +187,5 @@ text = "Exit"
 [connection signal="ball_changed" from="PauseMenu/settings_menu" to="ball" method="_on_settings_ball_changed"]
 [connection signal="paddle_changed" from="PauseMenu/settings_menu" to="Racket" method="_on_settings_paddle_changed"]
 [connection signal="paddle_changed" from="PauseMenu/settings_menu" to="Racket2" method="_on_settings_paddle_changed"]
+[connection signal="players_changed" from="PauseMenu/settings_menu" to="Racket" method="_on_settings_menu_players_changed"]
+[connection signal="players_changed" from="PauseMenu/settings_menu" to="Racket2" method="_on_settings_menu_players_changed"]

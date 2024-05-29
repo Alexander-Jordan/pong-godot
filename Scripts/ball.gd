@@ -20,6 +20,8 @@ var speed:int
 
 signal screen_exited_left
 signal screen_exited_right
+signal current_position(pos:Vector2)
+signal current_velocity(vel:Vector2)
 
 
 # FUNCTIONS
@@ -48,6 +50,9 @@ func _ready():
 
 
 func _physics_process(delta):
+	current_position.emit(self.global_position)
+	current_velocity.emit(self.velocity)
+	
 	var collision = move_and_collide(velocity * speed * delta)
 	if collision:
 		var collider:Object = collision.get_collider()

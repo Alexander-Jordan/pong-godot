@@ -39,6 +39,10 @@ const SETTINGS_GAMEPLAY_SPEED:Dictionary = {
 	"ball_speed_increase": 5,
 }
 
+const SETTINGS_PLAYERS:Dictionary = {
+	"paddle_1": 0,
+	"paddle_2": 1,
+}
 const SETTINGS_TEMPLATES:Dictionary = {
 	"visuals": 1,
 	"gameplay": 1,
@@ -56,6 +60,7 @@ const SETTINGS_GAMEPLAYS:Dictionary = {
 }
 
 const SETTINGS_SECTIONS:Dictionary = {
+	"players": SETTINGS_PLAYERS,
 	"templates": SETTINGS_TEMPLATES,
 	"visuals": SETTINGS_VISUALS,
 	"gameplays": SETTINGS_GAMEPLAYS,

@@ -1,5 +1,8 @@
 extends Window
 
+@onready var players_paddle_1_option_button = $TabContainer/Players/VBoxContainer/Paddle1/OptionButton
+@onready var players_paddle_2_option_button = $TabContainer/Players/VBoxContainer/Paddle2/OptionButton
+
 @onready var visuals_background_option_button:OptionButton = $TabContainer/Visuals/GridContainer/Background/OptionButton
 @onready var visuals_paddles_option_button:OptionButton = $TabContainer/Visuals/GridContainer/Paddles/OptionButton
 @onready var visuals_ball_option_button:OptionButton = $TabContainer/Visuals/GridContainer/Ball/OptionButton
@@ -24,6 +27,7 @@ extends Window
 @onready var ball_speed_increase_value = $TabContainer/Gameplay/Ball/GridContainer/BallSpeedIncrease/Controller/Value
 @onready var ball_speed_increase_slider = $TabContainer/Gameplay/Ball/GridContainer/BallSpeedIncrease/Controller/Slider
 
+signal players_changed
 signal visuals_changed
 signal paddle_changed
 signal ball_changed
@@ -32,9 +36,13 @@ func _on_settings_button_pressed():
 	self.show()
 
 func _ready():
+	var players_settings:Dictionary = GlobalSettings.data.players
 	var template_settings:Dictionary = GlobalSettings.data.templates
 	var visuals_settings:Dictionary = GlobalSettings.data.visuals.custom
 	var gameplay_settings:Dictionary = GlobalSettings.data.gameplays.custom
+	
+	players_paddle_1_option_button.select(players_settings.paddle_1)
+	players_paddle_2_option_button.select(players_settings.paddle_2)
 	
 	visuals_background_option_button.grab_focus()
 	visuals_background_option_button.select(visuals_settings.background)
@@ -83,6 +91,16 @@ func on_gameplay_setting_slider_drag_ended(value_changed:bool):
 		gameplay_general_template_option_button.select(0)
 		# set in Global Settings as well
 		GlobalSettings.data.templates.gameplay = 0
+
+
+func _on_players_paddle_1_option_button_item_selected(index):
+	GlobalSettings.data.players.paddle_1 = index
+	players_changed.emit()
+
+
+func _on_players_paddle_2_option_button_item_selected(index):
+	GlobalSettings.data.players.paddle_2 = index
+	players_changed.emit()
 
 
 func _on_visuals_background_option_button_item_selected(index):
