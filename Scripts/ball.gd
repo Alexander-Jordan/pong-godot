@@ -1,10 +1,14 @@
 extends CharacterBody2D
 
-
 # VARIABLES
+
+@export var audio_wall_bounce:AudioStream
+@export var audio_paddle_bounce:AudioStream
+@export var audio_out:AudioStream
 
 @onready var shape:RectangleShape2D = $CollisionShape2D.shape
 @onready var sprite:Sprite2D = $Sprite2D
+@onready var audio_player:AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 var screen_size:Vector2
 var rng = RandomNumberGenerator.new()
@@ -15,14 +19,12 @@ var max_speed:int
 var increase_speed:int
 var speed:int
 
-
 # SIGNALS
 
 signal screen_exited_left
 signal screen_exited_right
 signal current_position(pos:Vector2)
 signal current_velocity(vel:Vector2)
-
 
 # FUNCTIONS
 
@@ -42,7 +44,6 @@ func _set_settings_from_global():
 		speed = max_speed
 	increase_speed = gameplay_settings.ball_speed_increase * 10
 
-
 func _ready():
 	_set_settings_from_global()
 	screen_size = get_viewport_rect().size
@@ -59,6 +60,12 @@ func _physics_process(delta):
 		if !handle_collision(collider):
 			# if the collision hasn't been handled, just bounce
 			velocity = velocity.bounce(collision.get_normal())
+		
+		if collider is StaticBody2D:
+			audio_player.stream = audio_wall_bounce
+		else:
+			audio_player.stream = audio_paddle_bounce
+		audio_player.play()
 
 
 func set_random_direction():
@@ -71,6 +78,8 @@ func reset_ball_and_serve():
 	position = Vector2(screen_size.x/2, screen_size.y/2)
 	speed = min_speed
 	set_random_direction()
+	audio_player.stream = audio_wall_bounce
+	audio_player.play()
 
 
 func handle_collision(paddle:Object) -> bool:
@@ -92,6 +101,9 @@ func _on_settings_ball_changed():
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
+	audio_player.stream = audio_out
+	audio_player.play()
+	
 	# send signal about who missed the ball
 	if position.x < (screen_size.x/2):
 		screen_exited_left.emit()
