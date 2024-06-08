@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dx2uq41jaw7oh"]
+[gd_scene load_steps=13 format=3 uid="uid://dx2uq41jaw7oh"]
 
 [ext_resource type="PackedScene" uid="uid://c873ut5ta8aqv" path="res://Scenes/paddle.tscn" id="1_7675b"]
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_a0ske"]
@@ -9,12 +9,16 @@
 [ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="6_t2iy3"]
 [ext_resource type="PackedScene" uid="uid://3vslxyqccbpi" path="res://Scenes/settings_menu.tscn" id="8_52o28"]
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_br5sk"]
-a = Vector2(-640, 0)
-b = Vector2(640, 0)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_nwqb2"]
+normal = Vector2(0, 1)
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_wnfoh"]
-b = Vector2(0, 720)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_c8oy6"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5kvef"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_dtihq"]
+normal = Vector2(-1, 0)
 
 [node name="Main" type="Node2D"]
 
@@ -39,20 +43,20 @@ position = Vector2(640, 360)
 position = Vector2(640, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
-shape = SubResource("SegmentShape2D_br5sk")
+shape = SubResource("WorldBoundaryShape2D_nwqb2")
 
 [node name="Wall2" type="StaticBody2D" parent="."]
 position = Vector2(640, 720)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
-shape = SubResource("SegmentShape2D_br5sk")
+shape = SubResource("WorldBoundaryShape2D_c8oy6")
 
 [node name="Wall3" type="StaticBody2D" parent="."]
 collision_layer = 0
 script = ExtResource("4_p3qve")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall3"]
-shape = SubResource("SegmentShape2D_wnfoh")
+shape = SubResource("WorldBoundaryShape2D_5kvef")
 
 [node name="Wall4" type="StaticBody2D" parent="."]
 position = Vector2(1280, 0)
@@ -60,7 +64,7 @@ collision_layer = 0
 script = ExtResource("4_p3qve")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall4"]
-shape = SubResource("SegmentShape2D_wnfoh")
+shape = SubResource("WorldBoundaryShape2D_dtihq")
 
 [node name="GameUI" type="Control" parent="."]
 layout_mode = 3
