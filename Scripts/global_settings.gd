@@ -3,17 +3,6 @@ extends Node
 # constants
 const SAVEFILE = "user://SETTINGS.cfg"
 
-const SETTINGS_VISUALS_CLASSIC:Dictionary = {
-	"paddles": 0,
-	"ball": 0,
-	"background": 0,
-}
-const SETTINGS_VISUALS_REMASTERED:Dictionary = {
-	"paddles": 1,
-	"ball": 1,
-	"background": 1,
-}
-
 const SETTINGS_GAMEPLAY_CLASSIC:Dictionary = {
 	"paddle_height": 4,
 	"paddle_speed": 4,
@@ -44,13 +33,7 @@ const SETTINGS_PLAYERS:Dictionary = {
 	"paddle_2": 1,
 }
 const SETTINGS_TEMPLATES:Dictionary = {
-	"visuals": 1,
 	"gameplay": 1,
-}
-const SETTINGS_VISUALS:Dictionary = {
-	"custom": SETTINGS_VISUALS_CLASSIC,
-	"classic": SETTINGS_VISUALS_CLASSIC,
-	"remastered": SETTINGS_VISUALS_REMASTERED,
 }
 const SETTINGS_GAMEPLAYS:Dictionary = {
 	"custom": SETTINGS_GAMEPLAY_CLASSIC,
@@ -62,7 +45,6 @@ const SETTINGS_GAMEPLAYS:Dictionary = {
 const SETTINGS_SECTIONS:Dictionary = {
 	"players": SETTINGS_PLAYERS,
 	"templates": SETTINGS_TEMPLATES,
-	"visuals": SETTINGS_VISUALS,
 	"gameplays": SETTINGS_GAMEPLAYS,
 }
 
