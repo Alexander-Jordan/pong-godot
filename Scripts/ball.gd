@@ -55,10 +55,11 @@ func _physics_process(delta):
 	var collision = move_and_collide(velocity * speed * delta)
 	if collision:
 		var collider:Object = collision.get_collider()
-		if !handle_collision(collider):
-			# if the collision hasn't been handled, just bounce
+		if !handle_velocity_after_collision(collider):
+			# if the velocity was not handled after collision, just bounce
 			velocity = velocity.bounce(collision.get_normal())
 		
+		# what bounce sound should be played?
 		if collider is StaticBody2D:
 			audio_player.stream = audio_wall_bounce
 		else:
@@ -77,15 +78,17 @@ func reset_ball_and_serve():
 	audio_player.stream = audio_wall_bounce
 	audio_player.play()
 
-func handle_collision(paddle:Object) -> bool:
-	# returning false means that the collision hasn't been handled
-	if paddle.has_method("increase_ball_speed_after_bounce"):
-		speed = paddle.increase_ball_speed_after_bounce(speed, increase_speed, max_speed, position)
-	elif paddle.has_method("ball_speed_after_bounce"):
-		speed = paddle.ball_speed_after_bounce(min_speed, max_speed, position)
-	if paddle.has_method("ball_velocity_after_bounce"):
-		velocity = paddle.ball_velocity_after_bounce(velocity, position)
+func handle_velocity_after_collision(object:Object) -> bool:
+	# first check if the speed should change
+	if object.has_method("increase_ball_speed_after_bounce"):
+		speed = object.increase_ball_speed_after_bounce(speed, increase_speed, max_speed, position)
+	
+	# then check if the velocity should be handled
+	if object.has_method("ball_velocity_after_bounce"):
+		velocity = object.ball_velocity_after_bounce(velocity, position)
 		return true
+	
+	# returning false means that the velocity was not handled
 	return false
 
 # SIGNAL FUNCTIONS
@@ -104,5 +107,4 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 		screen_exited_right.emit()
 
 func _on_game_manager_new_serve():
-	print('test')
 	reset_ball_and_serve()
