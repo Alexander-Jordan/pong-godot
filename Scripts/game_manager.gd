@@ -12,14 +12,23 @@ signal game_pause
 signal game_unpause
 signal point_change
 
-func ready():
+func _ready():
 	init_new_game()
 
 func init_new_game():
 	game_reset.emit()
 	player_one_points = 0
 	player_two_points = 0
-	
+	wait_and_serve()
+
+func wait_and_serve():
+	# wait for some time before doing anything else
+	await get_tree().create_timer(1.0).timeout
+	# check if game is over
+	if player_one_points > 10 or player_two_points > 10:
+		game_over.emit()
+		is_game_over = true
+	new_serve.emit()
 
 func toggle_pause(force_pause:bool = false):
 	get_tree().paused = force_pause if force_pause else !get_tree().paused
@@ -49,19 +58,9 @@ func _on_exit_button_pressed():
 func _on_ball_screen_exited_left():
 	player_two_points += 1
 	point_change.emit("player_two", player_two_points)
-	# wait for some time before doing anything else
-	await get_tree().create_timer(1.0).timeout
-	if player_two_points > 10:
-		game_over.emit()
-		is_game_over = true
-	new_serve.emit()
+	wait_and_serve()
 
 func _on_ball_screen_exited_right():
 	player_one_points += 1
 	point_change.emit("player_one", player_one_points)
-	# wait for some time before doing anything else
-	await get_tree().create_timer(1.0).timeout
-	if player_one_points > 10:
-		game_over.emit()
-		is_game_over = true
-	new_serve.emit()
+	wait_and_serve()

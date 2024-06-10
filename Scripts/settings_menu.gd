@@ -33,7 +33,6 @@ func _on_settings_button_pressed():
 func _ready():
 	var players_settings:Dictionary = GlobalSettings.data.players
 	var template_settings:Dictionary = GlobalSettings.data.templates
-	var gameplay_settings:Dictionary = GlobalSettings.data.gameplays.custom
 	
 	players_paddle_1_option_button.select(players_settings.paddle_1)
 	players_paddle_2_option_button.select(players_settings.paddle_2)

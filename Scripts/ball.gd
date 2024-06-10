@@ -47,8 +47,6 @@ func _set_settings_from_global():
 func _ready():
 	_set_settings_from_global()
 	screen_size = get_viewport_rect().size
-	reset_ball_and_serve()
-
 
 func _physics_process(delta):
 	current_position.emit(self.global_position)
@@ -67,12 +65,10 @@ func _physics_process(delta):
 			audio_player.stream = audio_paddle_bounce
 		audio_player.play()
 
-
 func set_random_direction():
 	var zero_or_one = rng.randi_range(0, 1)
 	direction = Vector2(-1 if zero_or_one == 0 else 1, rng.randf_range(-1, 1))
 	velocity = direction.normalized()
-
 
 func reset_ball_and_serve():
 	position = Vector2(screen_size.x/2, screen_size.y/2)
@@ -80,7 +76,6 @@ func reset_ball_and_serve():
 	set_random_direction()
 	audio_player.stream = audio_wall_bounce
 	audio_player.play()
-
 
 func handle_collision(paddle:Object) -> bool:
 	# returning false means that the collision hasn't been handled
@@ -93,12 +88,10 @@ func handle_collision(paddle:Object) -> bool:
 		return true
 	return false
 
-
 # SIGNAL FUNCTIONS
 
 func _on_settings_ball_changed():
 	_set_settings_from_global()
-
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	audio_player.stream = audio_out
@@ -110,6 +103,6 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 	else:
 		screen_exited_right.emit()
 
-
 func _on_game_manager_new_serve():
+	print('test')
 	reset_ball_and_serve()
