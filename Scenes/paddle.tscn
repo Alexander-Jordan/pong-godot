@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c873ut5ta8aqv"]
 
-[ext_resource type="Script" path="res://Scripts/racket.gd" id="1_j8pk7"]
+[ext_resource type="Script" path="res://Scripts/paddle.gd" id="1_j8pk7"]
 [ext_resource type="Script" path="res://Scripts/paddle_ai.gd" id="2_oykbe"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_rjlg3"]
@@ -8,7 +8,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r1qgj"]
 size = Vector2(10, 40)
 
-[node name="Racket" type="CharacterBody2D"]
+[node name="paddle" type="CharacterBody2D"]
 script = ExtResource("1_j8pk7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

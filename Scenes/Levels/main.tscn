@@ -1,6 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://dx2uq41jaw7oh"]
+[gd_scene load_steps=13 format=3 uid="uid://dx2uq41jaw7oh"]
 
-[ext_resource type="PackedScene" uid="uid://c873ut5ta8aqv" path="res://Scenes/racket.tscn" id="1_7675b"]
+[ext_resource type="PackedScene" uid="uid://c873ut5ta8aqv" path="res://Scenes/paddle.tscn" id="1_7675b"]
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_a0ske"]
 [ext_resource type="PackedScene" uid="uid://b0xnq3tvsx7u1" path="res://Scenes/ball.tscn" id="2_cvkbu"]
 [ext_resource type="Script" path="res://Scripts/game_ui.gd" id="4_mg2a2"]
@@ -9,12 +9,16 @@
 [ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="6_t2iy3"]
 [ext_resource type="PackedScene" uid="uid://3vslxyqccbpi" path="res://Scenes/settings_menu.tscn" id="8_52o28"]
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_br5sk"]
-a = Vector2(-640, 0)
-b = Vector2(640, 0)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_nwqb2"]
+normal = Vector2(0, 1)
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_wnfoh"]
-b = Vector2(0, 720)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_c8oy6"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5kvef"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_dtihq"]
+normal = Vector2(-1, 0)
 
 [node name="Main" type="Node2D"]
 
@@ -22,11 +26,11 @@ b = Vector2(0, 720)
 process_mode = 3
 script = ExtResource("1_a0ske")
 
-[node name="Racket" parent="." instance=ExtResource("1_7675b")]
+[node name="paddle1" parent="." instance=ExtResource("1_7675b")]
 position = Vector2(150, 360)
 player = 1
 
-[node name="Racket2" parent="." instance=ExtResource("1_7675b")]
+[node name="paddle2" parent="." instance=ExtResource("1_7675b")]
 position = Vector2(1130, 360)
 player = 2
 upAction = "up2"
@@ -35,32 +39,34 @@ downAction = "down2"
 [node name="ball" parent="." instance=ExtResource("2_cvkbu")]
 position = Vector2(640, 360)
 
-[node name="Wall" type="StaticBody2D" parent="."]
+[node name="walls" type="Node" parent="."]
+
+[node name="wall_top" type="StaticBody2D" parent="walls"]
 position = Vector2(640, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
-shape = SubResource("SegmentShape2D_br5sk")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/wall_top"]
+shape = SubResource("WorldBoundaryShape2D_nwqb2")
 
-[node name="Wall2" type="StaticBody2D" parent="."]
+[node name="wall_bottom" type="StaticBody2D" parent="walls"]
 position = Vector2(640, 720)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
-shape = SubResource("SegmentShape2D_br5sk")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/wall_bottom"]
+shape = SubResource("WorldBoundaryShape2D_c8oy6")
 
-[node name="Wall3" type="StaticBody2D" parent="."]
+[node name="wall_left" type="StaticBody2D" parent="walls"]
 collision_layer = 0
 script = ExtResource("4_p3qve")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall3"]
-shape = SubResource("SegmentShape2D_wnfoh")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/wall_left"]
+shape = SubResource("WorldBoundaryShape2D_5kvef")
 
-[node name="Wall4" type="StaticBody2D" parent="."]
+[node name="wall_right" type="StaticBody2D" parent="walls"]
 position = Vector2(1280, 0)
 collision_layer = 0
 script = ExtResource("4_p3qve")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall4"]
-shape = SubResource("SegmentShape2D_wnfoh")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/wall_right"]
+shape = SubResource("WorldBoundaryShape2D_dtihq")
 
 [node name="GameUI" type="Control" parent="."]
 layout_mode = 3
@@ -166,18 +172,18 @@ text = "Exit"
 
 [node name="settings_menu" parent="PauseMenu" instance=ExtResource("8_52o28")]
 
-[connection signal="game_over" from="GameManager" to="Wall3" method="_on_game_manager_game_over"]
-[connection signal="game_over" from="GameManager" to="Wall4" method="_on_game_manager_game_over"]
+[connection signal="game_over" from="GameManager" to="walls/wall_left" method="_on_game_manager_game_over"]
+[connection signal="game_over" from="GameManager" to="walls/wall_right" method="_on_game_manager_game_over"]
 [connection signal="game_over" from="GameManager" to="GameUI" method="_on_game_manager_game_over"]
 [connection signal="game_pause" from="GameManager" to="PauseMenu" method="_on_game_manager_game_pause"]
 [connection signal="game_reset" from="GameManager" to="GameUI" method="_on_game_manager_game_reset"]
 [connection signal="game_unpause" from="GameManager" to="PauseMenu" method="_on_game_manager_game_unpause"]
 [connection signal="new_serve" from="GameManager" to="ball" method="_on_game_manager_new_serve"]
 [connection signal="point_change" from="GameManager" to="GameUI" method="_on_game_manager_point_change"]
-[connection signal="current_position" from="ball" to="Racket" method="_on_ball_current_position"]
-[connection signal="current_position" from="ball" to="Racket2" method="_on_ball_current_position"]
-[connection signal="current_velocity" from="ball" to="Racket" method="_on_ball_current_velocity"]
-[connection signal="current_velocity" from="ball" to="Racket2" method="_on_ball_current_velocity"]
+[connection signal="current_position" from="ball" to="paddle1" method="_on_ball_current_position"]
+[connection signal="current_position" from="ball" to="paddle2" method="_on_ball_current_position"]
+[connection signal="current_velocity" from="ball" to="paddle1" method="_on_ball_current_velocity"]
+[connection signal="current_velocity" from="ball" to="paddle2" method="_on_ball_current_velocity"]
 [connection signal="screen_exited_left" from="ball" to="GameManager" method="_on_ball_screen_exited_left"]
 [connection signal="screen_exited_right" from="ball" to="GameManager" method="_on_ball_screen_exited_right"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/ContinueButton" to="GameManager" method="_on_continue_button_pressed"]
@@ -185,7 +191,7 @@ text = "Exit"
 [connection signal="pressed" from="PauseMenu/VBoxContainer/SettingsButton" to="PauseMenu/settings_menu" method="_on_settings_button_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/ExitButton" to="GameManager" method="_on_exit_button_pressed"]
 [connection signal="ball_changed" from="PauseMenu/settings_menu" to="ball" method="_on_settings_ball_changed"]
-[connection signal="paddle_changed" from="PauseMenu/settings_menu" to="Racket" method="_on_settings_paddle_changed"]
-[connection signal="paddle_changed" from="PauseMenu/settings_menu" to="Racket2" method="_on_settings_paddle_changed"]
-[connection signal="players_changed" from="PauseMenu/settings_menu" to="Racket" method="_on_settings_menu_players_changed"]
-[connection signal="players_changed" from="PauseMenu/settings_menu" to="Racket2" method="_on_settings_menu_players_changed"]
+[connection signal="paddle_changed" from="PauseMenu/settings_menu" to="paddle1" method="_on_settings_paddle_changed"]
+[connection signal="paddle_changed" from="PauseMenu/settings_menu" to="paddle2" method="_on_settings_paddle_changed"]
+[connection signal="players_changed" from="PauseMenu/settings_menu" to="paddle1" method="_on_settings_menu_players_changed"]
+[connection signal="players_changed" from="PauseMenu/settings_menu" to="paddle2" method="_on_settings_menu_players_changed"]
