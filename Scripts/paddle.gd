@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var upAction:String = "up"
 @export var downAction:String = "down"
 
-@onready var shape:RectangleShape2D = $CollisionShape2D.shape
+@onready var collision_shape:CollisionShape2D = $CollisionShape2D
 @onready var sprite:Sprite2D = $Sprite2D
 @onready var paddle_ai:PaddleAI = $PaddleAI
 # used to lock x position
@@ -20,19 +20,23 @@ var ai:int
 
 # FUNCTIONS
 
-func _set_settings_from_global():
-	var gameplay_settings:Dictionary = GlobalSettings.data.gameplays.custom
-	speed = gameplay_settings.paddle_speed * 100
-	height = gameplay_settings.paddle_height * 10
-	shape.size.y = height
+func set_settings_from_global():
+	var settings:Dictionary = GlobalSettings.data.paddles['paddle_{player}'.format({'player': player})].templates.custom
+	speed = settings.paddle_speed * 100
+	height = settings.paddle_height * 10
+	var shape = RectangleShape2D.new()
+	shape.size = Vector2(10, height)
+	collision_shape.set_shape(shape)
 	sprite.scale.y = height
-	
-	var temp_ai = GlobalSettings.data.players['paddle_{player}'.format({'player': player})]
-	if temp_ai is int:
-		ai = temp_ai
+
+func set_ai_from_global_type():
+	var type = GlobalSettings.data.paddles['paddle_{player}'.format({'player': player})].type
+	if type is int:
+		ai = type
 
 func _ready():
-	_set_settings_from_global()
+	set_settings_from_global()
+	set_ai_from_global_type()
 
 func get_input():
 	var direction = Input.get_axis(upAction, downAction) if ai == 0 else paddle_ai.get_direction(ai)
@@ -75,13 +79,20 @@ func ball_velocity_after_bounce(ball_velocity:Vector2, ball_position:Vector2) ->
 
 # SIGNAL FUNCTIONS
 
-func _on_settings_paddle_changed():
-	_set_settings_from_global()
+func _on_settings_paddle_type_changed():
+	set_ai_from_global_type()
 
-func _on_settings_menu_players_changed():
-	var temp_ai = GlobalSettings.data.players['paddle_{player}'.format({'player': player})]
-	if temp_ai is int:
-		ai = temp_ai
+func _on_settings_paddle_height_changed():
+	var settings:Dictionary = GlobalSettings.data.paddles['paddle_{player}'.format({'player': player})].templates.custom
+	height = settings.paddle_height * 10
+	var shape = RectangleShape2D.new()
+	shape.size = Vector2(10, height)
+	collision_shape.set_shape(shape)
+	sprite.scale.y = height
+
+func _on_settings_paddle_speed_changed():
+	var settings:Dictionary = GlobalSettings.data.paddles['paddle_{player}'.format({'player': player})].templates.custom
+	speed = settings.paddle_speed * 100
 
 func _on_ball_current_position(pos:Vector2):
 	paddle_ai.ball_position = pos

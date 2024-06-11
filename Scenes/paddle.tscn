@@ -5,7 +5,7 @@
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_rjlg3"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_r1qgj"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rop0y"]
 size = Vector2(10, 40)
 
 [node name="paddle" type="CharacterBody2D"]
@@ -17,7 +17,7 @@ scale = Vector2(10, 40)
 texture = SubResource("CanvasTexture_rjlg3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_r1qgj")
+shape = SubResource("RectangleShape2D_rop0y")
 
 [node name="PaddleAI" type="Node2D" parent="."]
 script = ExtResource("2_oykbe")

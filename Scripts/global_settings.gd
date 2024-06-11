@@ -3,49 +3,70 @@ extends Node
 # constants
 const SAVEFILE = "user://SETTINGS.cfg"
 
-const SETTINGS_GAMEPLAY_CLASSIC:Dictionary = {
+const SETTINGS_TEMPLATE_PADDLE_CLASSIC:Dictionary = {
 	"paddle_height": 4,
 	"paddle_speed": 4,
+}
+const SETTINGS_TEMPLATE_PADDLE_BIG:Dictionary = {
+	"paddle_height": 20,
+	"paddle_speed": 8,
+}
+const SETTINGS_TEMPLATE_PADDLE_SPEED:Dictionary = {
+	"paddle_height": 10,
+	"paddle_speed": 14,
+}
+
+const SETTINGS_TEMPLATE_BALL_CLASSIC:Dictionary = {
 	"ball_size": 1,
 	"ball_min_speed": 4,
 	"ball_max_speed": 12,
 	"ball_speed_increase": 4,
 }
-const SETTINGS_GAMEPLAY_BIG:Dictionary = {
-	"paddle_height": 20,
-	"paddle_speed": 12,
+const SETTINGS_TEMPLATE_BALL_BIG:Dictionary = {
 	"ball_size": 10,
 	"ball_min_speed": 4,
 	"ball_max_speed": 12,
 	"ball_speed_increase": 4,
 }
-const SETTINGS_GAMEPLAY_SPEED:Dictionary = {
-	"paddle_height": 10,
-	"paddle_speed": 14,
+const SETTINGS_TEMPLATE_BALL_SPEED:Dictionary = {
 	"ball_size": 2,
-	"ball_min_speed": 5,
+	"ball_min_speed": 6,
 	"ball_max_speed": 20,
-	"ball_speed_increase": 5,
+	"ball_speed_increase": 8,
 }
 
-const SETTINGS_PLAYERS:Dictionary = {
-	"paddle_1": 0,
-	"paddle_2": 1,
+const SETTINGS_PADDLE:Dictionary = {
+	"custom": SETTINGS_TEMPLATE_PADDLE_CLASSIC,
+	"classic": SETTINGS_TEMPLATE_PADDLE_CLASSIC,
+	"big": SETTINGS_TEMPLATE_PADDLE_BIG,
+	"speed": SETTINGS_TEMPLATE_PADDLE_SPEED,
 }
-const SETTINGS_TEMPLATES:Dictionary = {
-	"gameplay": 1,
+const SETTINGS_BALL:Dictionary = {
+	"custom": SETTINGS_TEMPLATE_BALL_CLASSIC,
+	"classic": SETTINGS_TEMPLATE_BALL_CLASSIC,
+	"big": SETTINGS_TEMPLATE_BALL_BIG,
+	"speed": SETTINGS_TEMPLATE_BALL_SPEED,
 }
-const SETTINGS_GAMEPLAYS:Dictionary = {
-	"custom": SETTINGS_GAMEPLAY_CLASSIC,
-	"classic": SETTINGS_GAMEPLAY_CLASSIC,
-	"big": SETTINGS_GAMEPLAY_BIG,
-	"speed": SETTINGS_GAMEPLAY_SPEED
+
+const SETTINGS_PADDLES:Dictionary = {
+	"paddle_1": {
+		"type": 0,
+		"current_template": "classic",
+		"templates": SETTINGS_PADDLE,
+	},
+	"paddle_2": {
+		"type": 1,
+		"current_template": "classic",
+		"templates": SETTINGS_PADDLE,
+	}
 }
 
 const SETTINGS_SECTIONS:Dictionary = {
-	"players": SETTINGS_PLAYERS,
-	"templates": SETTINGS_TEMPLATES,
-	"gameplays": SETTINGS_GAMEPLAYS,
+	"paddles": SETTINGS_PADDLES,
+	"ball": {
+		"current_template": "classic",
+		"templates": SETTINGS_BALL,
+	},
 }
 
 # variables

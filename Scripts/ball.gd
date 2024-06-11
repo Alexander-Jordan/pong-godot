@@ -28,8 +28,8 @@ signal current_velocity(vel:Vector2)
 
 # FUNCTIONS
 
-func _set_settings_from_global():
-	var gameplay_settings:Dictionary = GlobalSettings.data.gameplays.custom
+func set_settings_from_global():
+	var gameplay_settings:Dictionary = GlobalSettings.data.ball.templates.custom
 	# SIZE
 	size = gameplay_settings.ball_size * 10
 	shape.size = Vector2(size, size)
@@ -45,7 +45,7 @@ func _set_settings_from_global():
 	increase_speed = gameplay_settings.ball_speed_increase * 10
 
 func _ready():
-	_set_settings_from_global()
+	set_settings_from_global()
 	screen_size = get_viewport_rect().size
 
 func _physics_process(delta):
@@ -93,8 +93,27 @@ func handle_velocity_after_collision(object:Object) -> bool:
 
 # SIGNAL FUNCTIONS
 
-func _on_settings_ball_changed():
-	_set_settings_from_global()
+func _on_settings_ball_size_changed():
+	var settings:Dictionary = GlobalSettings.data.ball.templates.custom
+	size = settings.ball_size * 10
+	shape.size = Vector2(size, size)
+	sprite.scale = Vector2(size, size)
+
+func _on_settings_ball_min_speed_changed():
+	var settings:Dictionary = GlobalSettings.data.ball.templates.custom
+	min_speed = settings.ball_min_speed * 100
+	if speed < min_speed:
+		speed = min_speed
+
+func _on_settings_ball_max_speed_changed():
+	var settings:Dictionary = GlobalSettings.data.ball.templates.custom
+	max_speed = settings.ball_max_speed * 100
+	if speed > max_speed:
+		speed = max_speed
+
+func _on_settings_ball_speed_increase_changed():
+	var settings:Dictionary = GlobalSettings.data.ball.templates.custom
+	increase_speed = settings.ball_speed_increase * 10
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	audio_player.stream = audio_out
