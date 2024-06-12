@@ -11,8 +11,12 @@ config_version=5
 [application]
 
 config/name="Pong"
+config/version="v1.0.0"
 run/main_scene="res://Scenes/Levels/menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
+boot_splash/image="res://Assets/pong_splash.png"
+config/icon="res://Assets/pong_icon_512x512.png"
+boot_splash/minimum_display_time=2000
 
 [autoload]
 
