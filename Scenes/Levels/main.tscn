@@ -1,12 +1,12 @@
 [gd_scene load_steps=13 format=3 uid="uid://dx2uq41jaw7oh"]
 
 [ext_resource type="PackedScene" uid="uid://c873ut5ta8aqv" path="res://Scenes/paddle.tscn" id="1_7675b"]
-[ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_a0ske"]
+[ext_resource type="Script" uid="uid://j4m3lt0qyo4g" path="res://Scripts/game_manager.gd" id="1_a0ske"]
 [ext_resource type="PackedScene" uid="uid://b0xnq3tvsx7u1" path="res://Scenes/ball.tscn" id="2_cvkbu"]
-[ext_resource type="Script" path="res://Scripts/game_ui.gd" id="4_mg2a2"]
-[ext_resource type="Script" path="res://Scripts/end_screen_wall.gd" id="4_p3qve"]
+[ext_resource type="Script" uid="uid://cd8vlnp46wh0w" path="res://Scripts/game_ui.gd" id="4_mg2a2"]
+[ext_resource type="Script" uid="uid://bjex17ih46kcc" path="res://Scripts/end_screen_wall.gd" id="4_p3qve"]
 [ext_resource type="FontFile" uid="uid://dsj5f3rf4iutd" path="res://Assets/retro_computer_personal_use.ttf" id="4_uptps"]
-[ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="6_t2iy3"]
+[ext_resource type="Script" uid="uid://bhjqxnsi3kahg" path="res://Scripts/pause_menu.gd" id="6_t2iy3"]
 [ext_resource type="PackedScene" uid="uid://3vslxyqccbpi" path="res://Scenes/settings_menu.tscn" id="8_52o28"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_nwqb2"]
