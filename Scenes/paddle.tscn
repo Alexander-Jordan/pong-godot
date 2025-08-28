@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c873ut5ta8aqv"]
 
-[ext_resource type="Script" path="res://Scripts/paddle.gd" id="1_j8pk7"]
-[ext_resource type="Script" path="res://Scripts/paddle_ai.gd" id="2_oykbe"]
+[ext_resource type="Script" uid="uid://berextwyr6s5d" path="res://Scripts/paddle.gd" id="1_j8pk7"]
+[ext_resource type="Script" uid="uid://bkux645nehtix" path="res://Scripts/paddle_ai.gd" id="2_oykbe"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_rjlg3"]
 
