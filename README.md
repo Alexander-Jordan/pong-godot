@@ -1,5 +1,5 @@
-# PONG
+# PING
 
-A remake made in the Godot game engine.
+Ping is a clone of Pong, made in the Godot game engine.
 
-[![pong_splash](Assets/pong_splash.png)](https://brallex.itch.io/pong)
+[![icon](Assets/icon.png)](https://brallex.itch.io/ping)
