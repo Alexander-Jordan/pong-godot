@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://32d5h6fwphdf"
-path="res://.godot/imported/pong_splash.png-d9ddae207207a97aa4a18c795177c3bb.ctex"
+uid="uid://dwobkggufckww"
+path="res://.godot/imported/icon.png-ec880de02d5dab0aa15458af9d6c53ed.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/pong_splash.png"
-dest_files=["res://.godot/imported/pong_splash.png-d9ddae207207a97aa4a18c795177c3bb.ctex"]
+source_file="res://Assets/icon.png"
+dest_files=["res://.godot/imported/icon.png-ec880de02d5dab0aa15458af9d6c53ed.ctex"]
 
 [params]
 

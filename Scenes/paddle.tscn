@@ -9,6 +9,7 @@
 size = Vector2(10, 40)
 
 [node name="paddle" type="CharacterBody2D"]
+modulate = Color(0.87451, 0.443137, 0.14902, 1)
 script = ExtResource("1_j8pk7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

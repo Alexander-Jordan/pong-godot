@@ -10,13 +10,14 @@ config_version=5
 
 [application]
 
-config/name="Pong"
+config/name="Ping"
 config/version="1.0.0"
 run/main_scene="res://Scenes/Levels/menu.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
-boot_splash/image="res://Assets/pong_splash.png"
-config/icon="res://Assets/pong_icon_512x512.png"
-boot_splash/minimum_display_time=2000
+boot_splash/bg_color=Color(1, 1, 1, 1)
+boot_splash/image="uid://dwobkggufckww"
+config/icon="uid://dwobkggufckww"
+boot_splash/minimum_display_time=3000
 
 [autoload]
 
@@ -54,3 +55,7 @@ down2={
 [rendering]
 
 textures/vram_compression/import_etc2_astc=true
+environment/icon=""
+environment/image=""
+environment/minimum_display_time=2000
+environment/bg_color=Color(0.14, 0.14, 0.14, 1)
