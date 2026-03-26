@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bnc6lnj1n4dqg"]
+[gd_scene format=3 uid="uid://bnc6lnj1n4dqg"]
 
 [ext_resource type="Script" uid="uid://bmqn7wxfgmuaj" path="res://Scripts/menu.gd" id="1_l7nh8"]
 [ext_resource type="FontFile" uid="uid://dsj5f3rf4iutd" path="res://Assets/retro_computer_personal_use.ttf" id="2_odct0"]
 [ext_resource type="PackedScene" uid="uid://3vslxyqccbpi" path="res://Scenes/settings_menu.tscn" id="3_pm31f"]
 
-[node name="menu" type="Control"]
+[node name="menu" type="Control" unique_id=419289690]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,9 +13,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_l7nh8")
 
-[node name="SettingsMenu" parent="." instance=ExtResource("3_pm31f")]
+[node name="SettingsMenu" parent="." unique_id=490136774 instance=ExtResource("3_pm31f")]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1874574405]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -29,18 +29,18 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="StartButton" type="Button" parent="VBoxContainer"]
+[node name="StartButton" type="Button" parent="VBoxContainer" unique_id=1784181369]
 layout_mode = 2
 focus_neighbor_top = NodePath("../ExitButton")
 theme_override_fonts/font = ExtResource("2_odct0")
 text = "Start"
 
-[node name="SettingsButton" type="Button" parent="VBoxContainer"]
+[node name="SettingsButton" type="Button" parent="VBoxContainer" unique_id=736003663]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_odct0")
 text = "Settings"
 
-[node name="ExitButton" type="Button" parent="VBoxContainer"]
+[node name="ExitButton" type="Button" parent="VBoxContainer" unique_id=97785295]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../StartButton")
 theme_override_fonts/font = ExtResource("2_odct0")
